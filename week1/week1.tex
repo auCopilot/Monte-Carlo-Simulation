@@ -122,13 +122,39 @@
 
 \begin{document}
 
-% -------------------------------------------------
-% Title page
-% -------------------------------------------------
+In week 1 we discussed some behind the scenes of Monte Carlo Simulation. 
+\section{Linear Congruential Generator}
 
-\begin{titlepage}
+An important part of Monte Carlo Simulation is the generation of pseudo-random numbers. One of the first techniques for generating pseudo-random numbers was the Linear Congruential Generator (LCG). The LCG is defined by the recurrence relation:
+\begin{equation}
+    Z_{n+1} = (aZ_n + c) \mod m
+\end{equation}
+Where specific values of $a$, $c$, and $m$ are chosen to produce a sequence of pseudo-random numbers and it is initialized with some $Z_0 \in \mathbb{N}$. The choice of these parameters is crucial for the quality of the generated numbers. If chosen poorrly, the cycle length can be very short, on the order of 1 or 2, which is not desirable. However, number theory gives results that improve this to the order of $m$. The number theory results are beyond the scope of this course.
 
-    \maketitle
-    \thispagestyle{empty}
+\section{Monte Carlo Integration in 1D}
+We can use Monte Carlo Simulation to estimate the value of an integral. Let $h(x)$ be defined on the unit interval $(0,1)$. We can estimate the integral of $h(x)$ by generation $N$ random numbers $x_1, x_2, \ldots, x_N$ uniformly distributed in $(0,1)$ and computing the average of $h(x_i)$:
+\begin{equation}
+   \hat{\ell} = \int_0^1 h(x) dx \approx \frac{1}{N} \sum_{i=1}^{N} h(x_i)
+\end{equation}
+As the law of large numbers ensures convergence of the average to the expected value, we have that
+\begin{equation}
+    \dfrac{1}{N}\sum_{i=1}^{N} h(x_i) \to \mathbb{E}[h(X_i)] = \int_0^1 h(x)f(x) dx \text{ for } N \to \infty.
+\end{equation}
+Since the randoms numbers i i.i.d and uniformly distributed, we have that $f(x) = 1$ for $x \in (0,1)$ and $0$ otherwise. Thus we have that
+\begin{equation}
+    \dfrac{1}{N}\sum_{i=1}^{N} h(x_i) \to \int_0^1 h(x) dx \text{ for } N \to \infty.
+\end{equation}
 
-\end{titlepage}
+\section{Testing for Statistical Properties of Pseudo Random Numbers (PRNs)}
+When we have indeed made a PRN Generator, we want to test it for statistical properties. We can do this by generating a large number of PRNs and then testing them for uniformity and independence. To test uniformity, we discretize the unit interval into $r$ bins, and count the number of points in each bin. We compare this to the expected number of points. Practially this is done using the $\chi^2$ distributed test statistic:
+\begin{equation}
+    T_N(u_1, \ldots, u_N) = \sum_{i=1}^{r} \frac{(N_i - N/r)^2}{N/r}
+\end{equation}
+Where $N_i$ is the number of points in bin $i$. If the PRNs are indeed uniformly distributed, then $T_N$ is $\chi^2$ distributed with $r-1$ degrees of freedom. We can then compare the value of $T_N$ to the critical value of the $\chi^2$ distribution to determine if we reject or accept the null hypothesis that the PRNs are uniformly distributed at a given significance level. See section 1.4 of the lecture notes.
+
+Somewhat more involved is the test for autocorrelations by the lengths of increasing subsequences in the PRN sequence. See example 1.6 of the lecture notes.D
+
+\section{Output Analysis}
+
+
+\end{document}
