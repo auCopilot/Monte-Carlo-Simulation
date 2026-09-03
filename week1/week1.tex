@@ -156,5 +156,18 @@ Somewhat more involved is the test for autocorrelations by the lengths of increa
 
 \section{Output Analysis}
 
+Suppose that we are interested in estimating some quantity $\ell$ using Monte Carlo Simulation. We can do this by generating $N$ i.i.d. random variables $X_1, X_2, \ldots, X_N$ and computing the average of some function $h(X_i)$, however, we might be happy with some estimate, that with reasonable probability $1-\alpha$ is within some tolerance $\epsilon$. We can construct a approximate confidence interval
+\begin{equation}
+    \hat{\ell} \pm z_{1-\alpha/2} \frac{\hat{\sigma}}{\sqrt{N}}
+\end{equation}
+for $\ell$ under the asymptotic normality of the sample mean. However, we have no idea what the size of $N$ should be in order to achieve the interval bounds. The bound condition is given by
+\begin{equation}
+    z_{1-\alpha/2} \frac{\hat{\sigma}}{\sqrt{N}} \approx \epsilon
+\end{equation}
+so we can solve for $N$ to get
+\begin{equation}
+    N \approx \left( \frac{z_{1-\alpha/2} \hat{\sigma}}{\epsilon} \right)^2
+\end{equation}
+This leads to a two-stage procedure, where we first generate a small number of samples $N_0$ and compute the sample variance $\hat{\sigma}^2$, to an appropiate accuracy in a trial run. We then use this estimate to determine the required number of samples $N$ to achieve the desired accuracy $\epsilon$ with probability $1-\alpha$. We then generate $N$ samples and compute the final estimate $\hat{\ell}$ and the confidence interval.
 
 \end{document}

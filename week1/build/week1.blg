@@ -1,4 +1,4 @@
 [0] Config.pm:308> INFO - This is Biber 2.20
-[1] Config.pm:311> INFO - Logfile is 'build/week1.blg'
-[240] biber-MSWIN64:340> INFO - === 
-[340] Biber.pm:420> INFO - Reading 'build/week1.bcf'
+[0] Config.pm:311> INFO - Logfile is 'build/week1.blg'
+[125] biber-MSWIN64:340> INFO - === 
+[160] Biber.pm:420> INFO - Reading 'build/week1.bcf'

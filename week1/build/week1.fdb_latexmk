@@ -1,16 +1,16 @@
 # Fdb version 4
-["biber build/week1"] 1787743092.97366 "build/week1.bcf" "build/week1.bbl" "build/week1" 1787745247.98301 0
-  "build/week1.bcf" 1787745247 107992 1372e320b8e132f38eb5706b82283cc8 "pdflatex"
+["biber build/week1"] 1788349654.6013 "build/week1.bcf" "build/week1.bbl" "build/week1" 1788349874.91995 0
+  "build/week1.bcf" 1788349874 107992 1372e320b8e132f38eb5706b82283cc8 "pdflatex"
   (generated)
   "build/week1.bbl"
   "build/week1.blg"
   (rewritten before read)
-["pdflatex"] 1787745245.9134 "c:/Users/thoma/Documents/AarhusUniversitet/Monte-Carlo-Simulation/week1/week1.tex" "week1.pdf" "week1" 1787745247.98414 0
-  "build/week1.aux" 1787745247 899 776265d2080cb84235396dd35c64f96e "pdflatex"
-  "build/week1.bbl" 1787743099 0 d41d8cd98f00b204e9800998ecf8427e "biber build/week1"
-  "build/week1.out" 1787745247 918 4805004655e30e999a51996d1aae9800 "pdflatex"
-  "build/week1.run.xml" 1787745247 2231 5800bd19f642ca95a572600087a6352f "pdflatex"
-  "c:/Users/thoma/Documents/AarhusUniversitet/Monte-Carlo-Simulation/week1/week1.tex" 1787745243 6171 6d858aa31c68cdf49f6198cd4527e587 ""
+["pdflatex"] 1788349873.08402 "c:/Users/thoma/Documents/AarhusUniversitet/Monte-Carlo-Simulation/week1/week1.tex" "week1.pdf" "week1" 1788349874.9208 0
+  "build/week1.aux" 1788349874 899 b44cda99b6b28459a9332b0559df6a0b "pdflatex"
+  "build/week1.bbl" 1788349656 0 d41d8cd98f00b204e9800998ecf8427e "biber build/week1"
+  "build/week1.out" 1788349874 918 4805004655e30e999a51996d1aae9800 "pdflatex"
+  "build/week1.run.xml" 1788349874 2231 5800bd19f642ca95a572600087a6352f "pdflatex"
+  "c:/Users/thoma/Documents/AarhusUniversitet/Monte-Carlo-Simulation/week1/week1.tex" 1788349872 7550 9f52a1c6f9ddd23d700107d34a7eaffa ""
   "c:/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1747831289 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "c:/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1747829577 1004 54797486969f23fa377b128694d548df ""
   "c:/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm" 1747829577 916 f87d7c45f9c908e672703b83b72241a3 ""
@@ -28,6 +28,7 @@
   "c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb" 1747829577 35752 024fb6c41858982481f6968b5fc26508 ""
   "c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb" 1747829577 32762 7fee39e011c23b3589931effd97b9702 ""
   "c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb" 1747829577 32569 5e5ddc8df908dea60932f3c484a54c0d ""
+  "c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb" 1747829577 32716 08e384dc442464e7285e891af9f45947 ""
   "c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb" 1747829577 34694 870c211f62cb72718a00e353f14f254d ""
   "c:/texlive/2025/texmf-dist/tex/context/base/mkii/supp-pdf.mkii" 1747832450 71627 94eb9990bed73c364d7f53f960cc8c5b ""
   "c:/texlive/2025/texmf-dist/tex/generic/atbegshi/atbegshi.sty" 1747829705 24708 5584a51a7101caf7e6bbf1fc27d8f7b1 ""
@@ -145,7 +146,7 @@
   "c:/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1747834720 5569470 f263a82cf6bb394f5bc87b63f38b78df ""
   "c:/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt" 1747834948 3568612 11cce775f09d21d3d02611f58801a0c5 ""
   "c:/texlive/2025/texmf.cnf" 1747834693 713 e69b156964470283e0530f5060668171 ""
-  "week1.tex" 1787745243 6171 6d858aa31c68cdf49f6198cd4527e587 ""
+  "week1.tex" 1788349872 7550 9f52a1c6f9ddd23d700107d34a7eaffa ""
   (generated)
   "build/week1.aux"
   "build/week1.bcf"
