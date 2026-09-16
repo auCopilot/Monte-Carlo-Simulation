@@ -21,6 +21,7 @@
 \usepackage{biblatex}
 \usepackage{svg}
 \usepackage{hyperref}
+\usepackage{bbm}
 
 % -------------------------------------------------
 % Colors
@@ -132,3 +133,90 @@
     \thispagestyle{empty}
 
 \end{titlepage}
+
+\section{Sampling Uniformly from Regions}
+This section generalizes the idea of sampling uniformly from a region in $\mathbb{R}^n$. The goal is to sample points uniformly from a given region $B \subseteq \mathbb{R}^n$. Suppose that we sample $X = (X_1, X_2, \ldots, X_n)$ uniformly from a region $B$. Then the joint density of $X$ is given by
+\begin{equation}
+    f_{X_1X_2\ldots X_n}(x_1, x_2, \ldots, x_n) = \dfrac{1}{|B|},
+\end{equation}
+where $|B|$ is the volume (or area, in the case of $\mathbb{R}^2$) of the region $B$. The deinsity is constant in the region $B$ and zero outside of $B$. We can use this to find marginal densities of the individual components $X_i$. For example, the marginal density of $X_1$ is given by
+\begin{equation}
+    f_{X_1}(x_1) = \int_{B_{x_1}} \int_{-\infty}^{\infty} \ldots \int_{-\infty}^{\infty} f_{X_1X_2\ldots X_n}(x_1, x_2, \ldots, x_n) \, dx_2 \ldots dx_n = \int_{B_{x_1}} \dfrac{1}{|B|} \, dx_2 \ldots dx_n = \dfrac{|B_{x_1}|}{|B|}.
+\end{equation}
+This means that the marginal density of $X_1$ is proportional to the volume of the region $B_{x_1}$, which is the slice of the region $B$ at a fixed value of $x_1$. This can be generalized to any component $X_i$.
+
+\subsection{Task 12 Acceptance-Rejection}
+We illustrate using Task 12 as an example. 
+We are given the distribution function $f(x) = C  x^{-3/2} \dfrac{1}{\sqrt{2\pi}} e^{-(x-1)^2/2x}$, and we wish to find a dominating distribution $g(x)$ such that $f(x) \leq M g(x)$ for some constant $M$. If we expand the expression for $f(x)$ and disregard the constant, as this can always be absorbed into the constant $M$, we have that
+\begin{equation}
+    f(x) \propto x^{3/2} e^{-(x-1)^2/2x} = x^{-3/2} e^{-x/2} e^{1/2} e^{-1/2x} \propto x^{-3/2} e^{-x/2} e^{-1/2x}.
+\end{equation}
+The behaviour near $x= 0$ can be assessed graphically, however the tail behaviour as $x \to \infty$ can be assessed analytically. We have that $x^{-3/2} \to 0$ as $x \to \infty$, and $e^{-1/2x} \to 1$ as $x \to \infty$. So we have to match the tail behaviour of $e^{-x/2}
+$. Thus if we choose the exponential distribution $g(x) = \lambda e^{-\lambda x}$, we have that $f(x) \leq M g(x)$ for some constant $M$ and $\lambda = 1/2$. Graphically, we can see that $M \approx 2.7$.\vspace{1em}
+
+
+
+Let $(X,Y)$ be uniformly distributed on the region $B = \{(x,y) \in \mathbb{R}^2 : 0 \leq y \leq f(x)\}$. Where $f(x)$ is a distribution function. We then wish to find the marginal density of $X$. We have that
+\begin{equation}
+    |B| = \int \int_B \mathbbm{1}(0 \leq y \leq f(x)) \, dy \, dx = \int_{-\infty}^{\infty} \int_0^{f(x)} \, dy \, dx = \int_{-\infty}^{\infty} f(x) \, dx = 1,
+\end{equation}
+Now for a fixed $x$, we have that
+\begin{equation}
+    f_{X}(x) = \dfrac{\int_0^{f(x)} f_{XY}(x,y)\, dy}{|B|} = \dfrac{\int_0^{f(x)} 1\, dy}{1} = f(x).
+\end{equation}
+This shows us that if we sample uniformly from the region below the curve of a distribution function $f(x)$, then the marginal density of $X$ is given by $f(x)$. This is the basis for the acceptance-rejection method.
+
+\section{Transformation of Variables}
+Suppose that we have a vector of random variables $X = (X_1, X_2, \ldots, X_n)$ with joint density $f_X(x)$. We wish to find the joint density of a new vector of random variables $Y = (Y_1, Y_2, \ldots, Y_n)$, where $Y = g(X)$ for some function $g$. If $g$ is a one-to-one transformation, then we can find the joint density of $Y$ using the change of variables formula. Let $h = g^{-1}$ be the inverse transformation. Then the joint density of $Y$ is given by
+\begin{equation}
+    f_Y(y) = f_X(h(y)) \left| \det J_h(y) \right|,
+    \quad y \in \mathbb{R}^n.
+\end{equation}
+\subsection{Task 13}
+We are given the transformation of $(X,Y)$ to $(V,U)$, where $X = \sqrt{V}cos(U)$ and $Y = \sqrt{V}sin(U)$, Where $ V > 0$ and $0 < U < \pi/2$. $X$ and $Y$ independent and standard normal. We wish to find the joint density of $(V,U)$. Note that the trasform implies that
+$$X^2 + Y^2 = V$$
+And since $(X,Y)$ is jointly standard normal, we have that
+$$f_{X,Y}(x,y) = \frac{1}{2\pi} e^{-\frac{1}{2}(x^2 + y^2)} = \frac{1}{2\pi} e^{-\frac{1}{2}V}$$
+\begin{equation}
+    h(v,u) = (\sqrt{v}cos(u), \sqrt{v}sin(u)) = (x,y),
+\end{equation}
+and the Jacobian matrix of $h$ is
+\begin{equation}
+    J_h(v,u) = \begin{pmatrix}
+        \frac{\partial x}{\partial v} & \frac{\partial x}{\partial u} \\
+        \frac{\partial y}{\partial v} & \frac{\partial y}{\partial u}
+    \end{pmatrix} = \begin{pmatrix}
+        \frac{1}{2\sqrt{v}}cos(u) & -\sqrt{v}sin(u) \\
+        \frac{1}{2\sqrt{v}}sin(u) & \sqrt{v}cos(u)
+    \end{pmatrix}.
+\end{equation}
+The determinant of the Jacobian matrix is
+\begin{equation}
+    \det J_h(v,u) = \frac{1}{2\sqrt{v}}cos(u) \cdot \sqrt{v}cos(u) - (-\sqrt{v}sin(u)) \cdot \frac{1}{2\sqrt{v}}sin(u) = \frac{1}{2}cos^2(u) + \frac{1}{2}sin^2(u) = \frac{1}{2}.
+\end{equation}
+Therefore, the joint density of $(V,U)$ is
+\begin{equation}
+    f_{V,U}(v,u) = f_{X,Y}(h(v,u)) \left| \det J_h(v,u) \right| =  \frac{1}{2\pi} e^{-\frac{1}{2}V} \cdot \frac{1}{2}.
+\end{equation}
+We see that this is a product of two functions, one in $v$ and one in $u$, which means that $V$ and $U$ are independent. More specifically, we have that $V$ is exponentially distributed with rate parameter $\lambda = 1/2$, and $U$ is uniformly distributed on the interval $(0, \pi/2)$. This then means that (V,U) are points at distance $V$ from the origin, and the angle $U$ is uniformly distributed on the interval $(0, \pi/2)$. \vspace{2em}
+
+Suppose we want point uniformly from the unit sphere. Then we are interested in points $(A,B,C)$ such that $A^2 + B^2 + C^2 = 1$. We have just seen above that independant standard normals are direction invariant, since the joint density functions becomes a function of the random variables through $||(X,Y,Z)||^2$. As such if we normalize the vector $(X,Y,Z)$, such that $(X,Y,Z) \to \frac{(X,Y,Z)}{||(X,Y,Z)||}$, then we have a point uniformly distributed on the unit sphere, where $A = \frac{X}{||(X,Y,Z)||}$, $B = \frac{Y}{||(X,Y,Z)||}$, and $C = \frac{Z}{||(X,Y,Z)||}$. If we substitute into the equation for the unit sphere, we have that
+\begin{equation}
+    A^2 + B^2 + C^2 = \frac{X^2}{||(X,Y,Z)||^2} + \frac{Y^2}{||(X,Y,Z)||^2} + \frac{Z^2}{||(X,Y,Z)||^2} = \frac{X^2 + Y^2 + Z^2}{||(X,Y,Z)||^2} = 1.
+\end{equation}
+
+\section{Task 15}
+In the following we are interested in finding a bounding box for the region $B = \{(x_1,x_2) \in \mathbb{R}^2 : 0 \leq x_1 \leq \sqrt{g(x_1/x_2)}\}$, where $f(x)$ is a distribution function. We have a given candidate density function $g(x) = xe^{-x}$. The steps we need to follow are:
+\begin{enumerate}
+    
+    \item Find the supremum of $\sqrt{g(x)}$, this will give us the upper bound for $x_1$.
+    \item  Define $x = x_2/x_1$, note that $x\in \mathbb{R}$, can be both negative and positive.
+    \item Find the bounds for $x_2$, since $x_2 = xx_1$, it follows from the inequality in $B$, and the fact that $x$ can be both negative and positive, that $ -sup_{x\in \mathbb{R}} x \sqrt{g(x)}< x_2 < sup_{x\in \mathbb{R}} x \sqrt{g(x)}$.
+\end{enumerate}
+For the the function $g(x) = xe^{-x}$, we find the supremum of $\sqrt{g(x)}$ to be $\frac{1}{\sqrt{e}}$. For the bounds of $x_2$, we have that $x_2 = xx_1$, and since $x$ can be both negative and positive, we have that $ -sup_{x\in \mathbb{R}} x \sqrt{g(x)}< x_2 < sup_{x\in \mathbb{R}} x \sqrt{g(x)}$. We find the supremum of $x\sqrt{g(x)}$ to be $\approx 1.16$. Thus we have that the bounding box is given by
+\begin{equation}
+    A = \{(x_1,x_2) \in \mathbb{R}^2 : 0 \leq x_1 \leq \frac{1}{\sqrt{e}}, -1.16 < x_2 < 1.16\}.
+\end{equation}
+Thus we need to sample from points $U \sim Unif(0, \frac{1}{\sqrt{e}})$ and $V \sim Unif(-1.16, 1.16)$, and accept the points that fall in the region $B$. Note for this perticular function, negative values of $x_2$ will create point in the complex plane, so we can further restrict the bounding box to be $A = \{(x_1,x_2) \in \mathbb{R}^2 : 0 \leq x_1 \leq \frac{1}{\sqrt{e}}, 0 < x_2 < 1.16\}$.
+
+\end{document}

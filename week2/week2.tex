@@ -132,3 +132,17 @@
     \thispagestyle{empty}
 
 \end{titlepage}
+
+\section{The Inverse Transfrom Method}
+
+We discussed the inverse transform method. This method is usefull for generating random variables from a given distribution. However, we are restricted to distributions with a known cumulative distribution function (CDF) that is invertible. The method is based on the fact that if $U$ is a uniform random variable on the interval $[0, 1]$, then $X = F^{-1}(U)$ has the distribution function $F$. Pratically then, we can simulate a random variable $X$ with distribution function $F$ by generating a uniform random variable $U$ and then computing $X = F^{-1}(U)$.
+
+\section{Discrete Distributions}
+Sampling from is a bit different and requires algorithms that act on the uniform random variable $U$ to generate a discrete random variable $X$. To read more about this, refer to section 2.2 in the lecture notes.
+
+\section{Location-Scale Families}
+We say that a family of distributions is a location-scale family if a random variable $X$ with distribution $f(x)$
+can be transformed into a random variable $Z = \mu + \sigma X$, such that $f_Z(z) = f(x; \mu, \sigma) := \frac{1}{\sigma} f(\frac{x - \mu}{\sigma})$ also is a well-defined distribution.
+
+
+\end{document}
