@@ -1,0 +1,5 @@
+\contentsline {section}{\numberline {1}Introduction}{1}{section.1}%
+\contentsline {section}{\numberline {2}Crude Monte Carlo Simulation}{1}{section.2}%
+\contentsline {section}{\numberline {3}Control Variable}{2}{section.3}%
+\contentsline {section}{\numberline {4}Comparison of the methods}{2}{section.4}%
+\contentsline {section}{\numberline {5}Appendix}{3}{section.5}%
