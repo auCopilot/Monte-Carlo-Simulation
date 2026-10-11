@@ -308,6 +308,12 @@ INPUT c:/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmtt10.tfm
 INPUT c:/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmtt9.tfm
 INPUT a.py
 INPUT c:/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmr9.tfm
+INPUT ./b.py
+INPUT ./b.py
+INPUT b.py
+INPUT ./c.py
+INPUT ./c.py
+INPUT c.py
 INPUT ./figures/ConfInts.pdf
 INPUT ./figures/ConfInts.pdf
 INPUT ./figures/ConfInts.pdf
@@ -335,3 +341,4 @@ INPUT c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb
 INPUT c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb
 INPUT c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb
 INPUT c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb
+INPUT c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb

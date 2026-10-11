@@ -4,6 +4,7 @@ from a import crude_monte_carlo
 from b import control_monte_carlo
 from c import importance_monte_carlo
 from parameters import *
+np.random.seed(0)
 
 # Column is method, row is simulation run
 estimates = np.zeros((SIMULATION_RUNS, len(methods)))

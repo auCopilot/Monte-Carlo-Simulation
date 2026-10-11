@@ -11,7 +11,7 @@ sigma_s = np.ones((m, m))
 ### (c) ###
 
 # Q measure paramters
-mu_q = np.ones(m) * 2
+mu_q = np.ones(m) * np.sqrt(10) - 1
 sigma_q = sigma_s
 
 # P measure parameters

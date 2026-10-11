@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.5.21)  9 OCT 2026 11:36
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.5.21)  11 OCT 2026 19:28
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -806,45 +806,49 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has b
                    \relax 
 l.27     Crude 
                Monte Carlo simulation to estimate the probability of exceeda... [1])
-<figures/ConfInts.pdf, id=85, 713.52406pt x 385.92181pt>
+
+[2] (./b.py
+
+[3]
+
+[4]) (./c.py
+
+[5]
+
+[6])
+<figures/ConfInts.pdf, id=344, 713.52406pt x 385.92181pt>
 File: figures/ConfInts.pdf Graphic file (type pdf)
 <use figures/ConfInts.pdf>
-Package pdftex.def Info: figures/ConfInts.pdf  used on input line 114.
+Package pdftex.def Info: figures/ConfInts.pdf  used on input line 174.
 (pdftex.def)             Requested size: 409.71689pt x 221.60889pt.
 
 
-LaTeX Warning: `h' float specifier changed to `ht'.
+[7 <./figures/ConfInts.pdf>] (./parameters.py)
 
-
-
-[2] (./parameters.py)
-
-[3 <./figures/ConfInts.pdf>]
-
-[4] (build/project1.aux)
+[8] (build/project1.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-04-29>
  ***********
 Package rerunfilecheck Info: File `project1.out' has not changed.
-(rerunfilecheck)             Checksum: CDF6CFDF3A6E8B37102EDD4FF41EB173;681.
+(rerunfilecheck)             Checksum: D7606D4C3BE6C490AD86E28F02EA785C;819.
 Package logreq Info: Writing requests to 'project1.run.xml'.
 \openout1 = `project1.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 26344 strings out of 469590
- 501298 string characters out of 5474519
- 1548817 words of memory out of 5000000
- 52754 multiletter control sequences out of 15000+600000
+ 26615 strings out of 469590
+ 504957 string characters out of 5474519
+ 1756944 words of memory out of 5000000
+ 52812 multiletter control sequences out of 15000+600000
  635015 words of font info for 73 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 94i,11n,93p,773b,2178s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on build/project1.pdf (5 pages, 197873 bytes).
+ 94i,11n,93p,890b,2178s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
+Output written on build/project1.pdf (9 pages, 235720 bytes).
 PDF statistics:
- 315 PDF objects out of 1000 (max. 8388607)
- 220 compressed objects within 3 object streams
- 109 named destinations out of 1000 (max. 500000)
- 58 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 589 PDF objects out of 1000 (max. 8388607)
+ 486 compressed objects within 5 object streams
+ 316 named destinations out of 1000 (max. 500000)
+ 66 words of extra memory for PDF output out of 10000 (max. 10000000)
 

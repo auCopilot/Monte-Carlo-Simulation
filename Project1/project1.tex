@@ -105,7 +105,67 @@ is found with a variance of $s^2 = 1.03\cdot 10^{-7}$.
 
 
 \section{Control Variable}
-A control variable is now introduced with the aim of reducing the variance of the Monte Carlo estimator. One caviat of the control variable method is that we need a closed from expression for the expectation of the control variable. We introduce the control variable $Y = \Delta S$ and compute its expectation
+A control variable is now introduced with the aim of reducing the variance of the Monte Carlo estimator. The estimator is now given by
+\begin{equation}
+    \ell_{CV} = Y - \beta(Z - \mathbb{E}[Z]),
+\end{equation}
+where $Y = \mathbb{I}(L > x)$ is the original estimator, $Z$ is the control variable and $\beta$ is a constant. It follows from proposition 5.1, that the optimal value of $\beta$ is given by
+\begin{equation*}
+    \beta^* = \frac{\text{Cov}(Y, Z)}{\text{Var}(Z)}.
+\end{equation*}
+When considering the choice of a control variable, we should aim to choose a variable that satisfies the following properties:
+\begin{enumerate}
+    \item Closed form expression for the expectation of the control variable $\mathbb{E}[Z]$.
+    \item The control variable should be as correlated with the original estimator $Y$ as possible.
+    \item The reduction in variance should be significant enough to justify the additional computational cost of calculating the control variable.
+\end{enumerate}
+Given $L$, two choices of control variables are natural. The first one is the linear term of L given by:
+\begin{equation*}
+    Z_1 = \delta^T\Delta S, 
+\end{equation*}
+and the second one is the quadratic term of L given by:
+\begin{equation*}
+    Z_2 = \Delta S^T\Gamma\Delta S.
+\end{equation*}
+Since $m, \, \Gamma = 1$, and the fact that $Delta_S$ is standard normal, $Z_1 \sim \delta\mathcal{N}(0, 1)$ and $Z_2 \sim \chi^2(1)$, and as such their expectations are given by
+\begin{equation*}
+    \mathbb{E}[Z_1] = 0, \quad \mathbb{E}[Z_2] = 1.
+\end{equation*}
+To test which control variable is the best, a small pilot study is conducted to find the sample correlation between the original estimator $Y$ and the two control variables $Z_1$ and $Z_2$, yeilding
+\begin{equation*}
+    \text{Corr}(Y, Z_1) \approx 0.25, \quad \text{Corr}(Y, Z_2) \approx 0.37.
+\end{equation*}
+Given the results of the pilot study, and the fact that $Z_2$ is not much more computationally expensive to compute than $Z_1$, $Z_2$ is chosen as a control variable. This leads to a reduction in variance of approximately $26\%$ compared to the crude MCS. Since crude MCS has a $\sqrt{N}$ convergence rate, and we we roughly double the number of operations by computing the control variable, it seem reasonable to stick with crude MCS and double the number of samples, in order to achieve a reduction in variance of the order $\sqrt{2}$. 
+
+\lstinputlisting[
+    caption={Python code for control variable MCS},
+    label={code_b}
+]{b.py}
+
+\section{Importance-Sampling}
+Since we are interested in estimating a relatively rare event, we can use importance sampling to reduce the variance. We are interested in designing a new distribution under which the event $L > x$ is likely to occur. For numerical stability, it is desirable to choose a distribution that is not too far from the original distribution. If we inspect $L$, it is compromised of a linear and a quadratic term. We may consider if we want to shift the mean of $\Delta_S$ upwards or downwards. Since we have a quadratic term, that is always positive, shifting the mean in a negative direction, will be somewhat dampened by the linear term, as such we would require larger shifting in the negative direction to observe the same effect, therefore, a positive shift is chosen. \vspace{.5cm}
+The expexctation of the loss $L$ is given by
+\begin{equation*}
+    \mathbb{E}[L] = \mathbb{E}[\delta^T\Delta S + \Delta S^T\Gamma\Delta S] = \mathbb{E}[\delta^T\Delta S] + \mathbb{E}[\Delta S^T\Gamma\Delta S] = 0 + 1 = 1,
+\end{equation*}
+Now we would like to shift the mean of $\Delta S$ such that the expectation of $L$ is equal to the threshold $x = 10$, such that the rare event $L > x$, is no longer rare. We do this by setting the expectation of $L$ under the new distribution $\mathbb{Q}$ to be equal to $x = 10$:
+\begin{equation*}
+    \mathbb{E}_{\mathbb{Q}}[L] = \mathbb{E}[\delta^T(\Delta S + \mu) + (\Delta S + \mu)^T\Gamma(\Delta S + \mu)] = 10.
+\end{equation*}
+as adding a mean $\mu$ to $\Delta S$, will shift its mean by $\mu$, so for $m = 1$
+\begin{equation*}
+    \mathbb{E}_{\mathbb{Q}}[L] = 2\mu + \mathbb{E}(\Delta S^2) + \mu^2 = 2\mu + 1 + \mu^2 = 10 \implies \mu(\mu + 2) = 9.
+\end{equation*}
+The positive solution to this equation is $\sqrt(10) -1 \approx 2.16$, and in accordance with above reasoning, we see that a negative shift would require $\mu \approx -4.16$, which is considerably larger in magnitude. 
+
+\vspace{.5cm}
+Using this design choice, variance reduction on the order of $3000\%$ is achieved. As such, importance-sampling offers a significant improvement compared to crude MCS, far outweighing the additional computational cost of computing the likelihood ratios. The code snippet for the importance sampling MCS can be seen in \autoref{code_c}.
+
+\lstinputlisting[
+    caption={Python code for importance sampling MCS},
+    label={code_c}
+]{c.py}
+
 
 \section{Comparison of the methods}
 

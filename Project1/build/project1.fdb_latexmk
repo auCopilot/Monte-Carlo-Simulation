@@ -1,18 +1,20 @@
 # Fdb version 4
-["biber build/project1"] 0 "build/project1.bcf" "build/project1.bbl" "build/project1" 1791538582.64815 -1
-  "build/project1.bcf" 1791538582 107992 1372e320b8e132f38eb5706b82283cc8 "pdflatex"
+["biber build/project1"] 1791739103.95131 "build/project1.bcf" "build/project1.bbl" "build/project1" 1791739737.98651 0
+  "build/project1.bcf" 1791739737 107992 1372e320b8e132f38eb5706b82283cc8 "pdflatex"
   (generated)
   "build/project1.bbl"
   "build/project1.blg"
   (rewritten before read)
-["pdflatex"] 1791538579.4049 "c:/Users/thoma/Documents/AarhusUniversitet/Monte-Carlo-Simulation/Project1/project1.tex" "project1.pdf" "project1" 1791538582.64919 0
+["pdflatex"] 1791739736.00173 "c:/Users/thoma/Documents/AarhusUniversitet/Monte-Carlo-Simulation/Project1/project1.tex" "project1.pdf" "project1" 1791739737.9874 0
   "a.py" 1791535387 1478 ace992bfce3ee12aefd518f6e38ec7a3 ""
-  "build/project1.aux" 1791538582 2038 0f8e9a781b6786f889e2c60850a47626 "pdflatex"
-  "build/project1.bbl" 1791535920 0 d41d8cd98f00b204e9800998ecf8427e "biber build/project1"
-  "build/project1.out" 1791538582 681 cdf6cfdf3a6e8b37102edd4ff41eb173 "pdflatex"
-  "build/project1.run.xml" 1791538582 2252 6a1ba97ca6a3073c136db3b2e7830d90 "pdflatex"
-  "build/project1.toc" 1791538582 369 57ec37816805372bc7ffded0e56a456a "pdflatex"
-  "c:/Users/thoma/Documents/AarhusUniversitet/Monte-Carlo-Simulation/Project1/project1.tex" 1791537180 5131 be88fe2867414e8d20702e0099518c20 ""
+  "b.py" 1791709105 3933 dc2aea8bae1ad14845affdf743daf271 ""
+  "build/project1.aux" 1791739737 2630 5b3836e37804af76a70dc3a37c955cd3 "pdflatex"
+  "build/project1.bbl" 1791739105 0 d41d8cd98f00b204e9800998ecf8427e "biber build/project1"
+  "build/project1.out" 1791739737 819 d7606d4c3be6c490ad86e28f02ea785c "pdflatex"
+  "build/project1.run.xml" 1791739737 2252 6a1ba97ca6a3073c136db3b2e7830d90 "pdflatex"
+  "build/project1.toc" 1791739737 444 950cb7214073beb1e0fa3cbd178da313 "pdflatex"
+  "c.py" 1791738959 2374 cd488d523db3e9bae634009e99220ec3 ""
+  "c:/Users/thoma/Documents/AarhusUniversitet/Monte-Carlo-Simulation/Project1/project1.tex" 1791739735 9779 59141a2187969ec051b70158c4b98c47 ""
   "c:/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1747831289 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "c:/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1747829577 1004 54797486969f23fa377b128694d548df ""
   "c:/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1747829577 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -52,6 +54,7 @@
   "c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb" 1747829577 32716 08e384dc442464e7285e891af9f45947 ""
   "c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb" 1747829577 29078 718ea4567ceff944262b0f5b0800e1d9 ""
   "c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb" 1747829577 34694 870c211f62cb72718a00e353f14f254d ""
+  "c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb" 1747829577 35309 940e81a5b9e04201a07e8b33a3ae6e64 ""
   "c:/texlive/2025/texmf-dist/tex/context/base/mkii/supp-pdf.mkii" 1747832450 71627 94eb9990bed73c364d7f53f960cc8c5b ""
   "c:/texlive/2025/texmf-dist/tex/generic/atbegshi/atbegshi.sty" 1747829705 24708 5584a51a7101caf7e6bbf1fc27d8f7b1 ""
   "c:/texlive/2025/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty" 1747830049 40635 c40361e206be584d448876bba8a64a3b ""
@@ -168,9 +171,9 @@
   "c:/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1747834720 5569470 f263a82cf6bb394f5bc87b63f38b78df ""
   "c:/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt" 1747834948 3568612 11cce775f09d21d3d02611f58801a0c5 ""
   "c:/texlive/2025/texmf.cnf" 1747834693 713 e69b156964470283e0530f5060668171 ""
-  "figures/ConfInts.pdf" 1791538578 26901 5905db6b7c654ee39b793c57b5618d15 ""
-  "parameters.py" 1791536457 822 239c23ac1ff0f01751aed446d2407129 ""
-  "project1.tex" 1791537180 5131 be88fe2867414e8d20702e0099518c20 ""
+  "figures/ConfInts.pdf" 1791733489 26923 2e7b1112318b326d943ff52f4145469c ""
+  "parameters.py" 1791738800 836 7420d48cb6a6423cbb8ecd73c7b5e65c ""
+  "project1.tex" 1791739735 9779 59141a2187969ec051b70158c4b98c47 ""
   (generated)
   "build/project1.aux"
   "build/project1.bcf"

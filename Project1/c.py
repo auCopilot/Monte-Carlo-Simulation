@@ -17,7 +17,7 @@ def likilihood_ratio(X, mu_p, sigma_p, mu_q, sigma_q):
     return p / q
 
 
-def importance_monte_carlo(N):
+def importance_monte_carlo(N, sample = None):
     """
     Importance Monte Carlo simulation to estimate the probability of exceedance of x.
 
@@ -31,7 +31,8 @@ def importance_monte_carlo(N):
     float: Estimated probability of exceedance
     """
     # Draw samples - this time from the importance distribution (expandable for m > 1)
-    importance_sample = np.random.multivariate_normal(mu_q, sigma_s, size = N).T
+    if sample is None:
+        importance_sample = np.random.multivariate_normal(mu_q, sigma_s, size = N).T
 
     # Compute likihood ratio for each sample
 
@@ -51,7 +52,7 @@ def importance_monte_carlo(N):
 
 if __name__ == '__main__':
     N = 10000
-
+    np.random.seed(0)
     from a import crude_monte_carlo
     l_crude, s2_crude = crude_monte_carlo(N)
     print("Importance sampling Monte Carlo simulation: \n")
