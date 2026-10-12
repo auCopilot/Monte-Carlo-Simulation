@@ -12,7 +12,7 @@
 % Set equation numbering to section and subsection
 %\renewcommand{\theequation}{\thesubsection.\arabic{equation}}
 \makeatletter
-\@addtoreset{equation}{subsection}
+%\@addtoreset{equation}{subsection}
 \makeatother
 \usepackage{listings}
 \usepackage{amssymb}
@@ -169,17 +169,82 @@ Using this design choice, variance reduction on the order of $3000\%$ is achieve
 
 \section{Comparison of the methods}
 
+To compare the three methods, we examine the confidence intervals for 30 different simulations runs with distinct random seeds. The results are shown in \autoref{fig:comparison}.
+
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.9\textwidth]{figures/ConfInts.pdf}
-    \caption{Comparison of confidence intervals for crude MCS, control variable MCS and importance sampling MCS. The confidence intervals are based on 30 simulations with $N = 10^4$ samples each.}
-    \label{fig:my_plot}
+    \caption{Comparison of confidence intervals for crude MCS, control variable MCS and importance sampling MCS. The confidence intervals are based on 30 simulations with $N = 10^4$ samples each. Dots represent the estimated probabilities.}
+    \label{fig:comparison}
 \end{figure}
+We see that the confidence intervals are much narrower for the importance sampling MCS, which is consistent with the previous results.
 
+The code to produce the plot can be seen in \autoref{code_d}.
+\lstinputlisting[
+    caption={Python code for comparison of the three methods},
+    label={code_d}
+]{d.py}
 
+\section{Closed form expressison of $\mathbb{P}(L > x)$ for the given parameters}
 
+We wish to show that the exceedance probability can be computed in a closed form expression involving the CDF $\phi(x)$ of the standard normal distribution. Given the parameters, $m = 1$, $\delta = 2$, $\Gamma = 1$, $\Sigma_S = 1$ and $x = 10$, we have $\Delta_S \sim \mathcal{N}(0, 1)$ and $L = 2\Delta S + \Delta S^2$. We can rewrite the exceedance probability as
+\begin{equation}
+    \mathbb{P}(L > x) = \mathbb{P}(\Delta S^2 + 2\Delta S - 10 > 0) 
+\end{equation}
+The left hand side is a quadratic polynomial in $\Delta S$, we note that it is convex, as such, this probability is equivalent to the probablity that $\Delta S $ is lesser than the smaller root of the polynomial or greater than the larger root of the polynomial. The roots of the polynomial are given by
+\begin{equation*}
+    r_{-} = -1 - \sqrt{11}, \quad r_{+} = -1 + \sqrt{11}.
+\end{equation*}
+We note that these events are disjoint, so we can write the exceedance probability as
+\begin{equation}
+    \mathbb{P}(L > x) = \mathbb{P}( \Delta S < r_{-} \cup \Delta S > r_{+}) = \mathbb{P}(\Delta S < r_{-}) + \mathbb{P}(\Delta S > r_{+})
+\end{equation}
+Since $\Delta S \sim \mathcal{N}(0, 1)$, we can express the exceedance probability in terms of the CDF $\phi(x)$ of the standard normal distribution as
+\begin{equation}
+    \mathbb{P}(L > x) = \phi(r_{-}) + 1 - \phi(r_{+})  \approx 0.0103,
+\end{equation}
+which is consistent with the results obtained from the Monte Carlo simulations.
+\subsection{Is this true for other distributions?}
+We imposed or used no special restrictions on the distribution of $\Delta S$, as such, this method could be used to compute the exceedance probability under any distribution, as long as the CDF of the distribution is available.
+\subsection{Generalization of crude and control- MCS to other distributions}
+As long as we can sample from the distribution of $\Delta S$, we can use crude MCS to estimate the exceedance probability without any modifications. \vspace{0.5cm}
 
+For control variable MCS, we do have the requirement that the expectation of the control variable is known in closed form - however this is true in general, and changing the sampling distribution of $\Delta S$ does not change this fact. As such, the control variable MCS can be generalized to other distributions without any modifications other than that the control variable $Z = h(\Delta S)$ has to be chosen such that its expectation $\mathbb{E}[Z]$ is known in closed form.
 
+\section{Cholesky Decomposition}
+We wish to find a matrix $\tilde{C}$ such that $\Delta_S = \tilde{C}Z$, where $Z \sim \mathcal{N}(0, I_2)$, it follows from definition 3.8 that we can find such a matrix $\tilde{C}$ by performing a Cholesky decomposition of the covariance matrix $\Sigma_S$. We define the upper triangular matrix     $\tilde{C}$ as
+\begin{equation}
+    \tilde{C} = \begin{bmatrix}
+        a & b\\
+        0 & c
+    \end{bmatrix},
+\end{equation}
+with unknowns $a, b, c \in \mathbb{R}$, and solve
+\begin{equation}
+    \tilde{C}\tilde{C}^T = \begin{bmatrix}
+        a & b\\
+        0 & c
+    \end{bmatrix} \begin{bmatrix}
+        a & 0\\
+        b & c
+    \end{bmatrix}  = \Sigma_S = \begin{bmatrix}
+        1 & 0.5\\
+        0.5 & 1
+    \end{bmatrix}.
+\end{equation}
+This produces the following system of equations
+\begin{align*}
+    a^2 + b^2 &= 1\\
+    bc &= 0.5\\
+    c^2 &= 1.
+\end{align*}
+$c^2 \implies c = 1$, and thus $b = 0.5$. Finally, we find $a$ by solving the first equation, yielding $a = \sqrt{1 - b^2} = \sqrt{1 - 0.25} = \sqrt{0.75}$. Thus, the Cholesky decomposition of $\Sigma_S$ is given by
+\begin{equation}
+    \tilde{C} = \begin{bmatrix}
+        \sqrt{0.75} & 0.5\\
+        0 & 1
+    \end{bmatrix}.
+    \end{equation}
 
 
 \newpage

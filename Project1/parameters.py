@@ -19,7 +19,7 @@ mu_p = np.zeros(m)
 sigma_p = sigma_s
 
 ######## (d) ########
-import seaborn as sns
+#import seaborn as sns
 from scipy.stats import norm
 
 Nd = 10000
@@ -28,7 +28,7 @@ SIMULATION_RUNS = 30
 plot_n = np.arange(1, SIMULATION_RUNS + 1)
 
 methods = ["Crude Monte Carlo", "Control Variable", "Importance Sampling"]
-colors = sns.color_palette("colorblind", 3)
+#colors = sns.color_palette("colorblind", 3)
 
 def confidence_interval(s, l , N, level = 0.05):
     """Compute confidence interval, equation (1.2)"""
