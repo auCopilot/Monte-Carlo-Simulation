@@ -7,4 +7,5 @@
 \contentsline {subsection}{\numberline {6.1}Is this true for other distributions?}{9}{subsection.6.1}%
 \contentsline {subsection}{\numberline {6.2}Generalization of crude and control- MCS to other distributions}{9}{subsection.6.2}%
 \contentsline {section}{\numberline {7}Cholesky Decomposition}{9}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Eigen decomposition of $\tilde {C}^T\tilde {C}$}{10}{subsection.7.1}%
 \contentsline {section}{\numberline {8}Appendix}{11}{section.8}%

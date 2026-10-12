@@ -244,7 +244,28 @@ $c^2 \implies c = 1$, and thus $b = 0.5$. Finally, we find $a$ by solving the fi
         \sqrt{0.75} & 0.5\\
         0 & 1
     \end{bmatrix}.
-    \end{equation}
+\end{equation}
+\subsection{Eigen decomposition of $\tilde{C}^T\tilde{C}$}
+
+First we compute $\tilde{C}^T\tilde{C}$:
+\begin{equation}
+    \tilde{C}^T\tilde{C} = \begin{bmatrix}
+        \sqrt{0.75} & 0\\
+        0.5 & 1
+    \end{bmatrix} \begin{bmatrix}
+        \sqrt{0.75} & 0.5\\
+        0 & 1
+    \end{bmatrix} = \begin{bmatrix}
+        0.75 & 0.5\sqrt{0.75}\\
+        0.5\sqrt{0.75} & 1.25
+    \end{bmatrix}.
+\end{equation}
+We note that $\tilde{C}^T\tilde{C}$ is a real symmetric matrix, it follows from the spectral theorem that there exists and orthogonal matrix $U$ and a diagonal matrix $\Lambda$ such that
+\begin{equation}
+    \tilde{C}^T\tilde{C} = U\Lambda U^T.
+\end{equation}
+where the columns of $U$ are the eigenvectors of $\tilde{C}^T\tilde{C}$ and the diagonal entries of $\Lambda$ are the corresponding eigenvalues. 
+
 
 
 \newpage

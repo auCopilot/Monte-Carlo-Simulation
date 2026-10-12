@@ -1,15 +1,15 @@
 # Fdb version 4
-["biber project1"] 1791805981.81283 "project1.bcf" "project1.bbl" "project1" 1791806146.83543 0
-  "project1.bcf" 1791806146 107992 1372e320b8e132f38eb5706b82283cc8 "pdflatex"
+["biber project1"] 1791826195.60996 "project1.bcf" "project1.bbl" "project1" 1791826278.12486 0
+  "project1.bcf" 1791826276 107992 1372e320b8e132f38eb5706b82283cc8 "pdflatex"
   (generated)
   "project1.bbl"
   "project1.blg"
   (rewritten before read)
-["pdflatex"] 1791806143.14927 "c:/Users/tsc/Documents/AarhusUniversitet/Monte-Carlo-Simulation/Project1/project1.tex" "project1.pdf" "project1" 1791806146.83664 0
+["pdflatex"] 1791826268.62737 "c:/Users/tsc/Documents/AarhusUniversitet/Monte-Carlo-Simulation/Project1/project1.tex" "project1.pdf" "project1" 1791826278.12753 0
   "a.py" 1791541318 1478 ace992bfce3ee12aefd518f6e38ec7a3 ""
   "b.py" 1791798551 3933 dc2aea8bae1ad14845affdf743daf271 ""
   "c.py" 1791798551 2374 cd488d523db3e9bae634009e99220ec3 ""
-  "c:/Users/tsc/Documents/AarhusUniversitet/Monte-Carlo-Simulation/Project1/project1.tex" 1791806142 14164 182be2ae7b825b46cea282e7c348745b ""
+  "c:/Users/tsc/Documents/AarhusUniversitet/Monte-Carlo-Simulation/Project1/project1.tex" 1791826260 14999 94fa733ecf4e989f70e27ad52d662943 ""
   "c:/texlive/2024/texmf-dist/fonts/map/fontname/texfonts.map" 1737668845 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "c:/texlive/2024/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1737666059 1004 54797486969f23fa377b128694d548df ""
   "c:/texlive/2024/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1737666059 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -41,6 +41,7 @@
   "c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb" 1737666060 36299 5f9df58c2139e7edcf37c8fca4bd384d ""
   "c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb" 1737666060 36741 0ee9e374ec3e30da87cdfb0ea3575226 ""
   "c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb" 1737666060 36281 c355509802a035cadc5f15869451dcee ""
+  "c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb" 1737666060 35469 dcf3a5f2fc1862f5952e3ee5eb1d98c4 ""
   "c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb" 1737666060 35752 024fb6c41858982481f6968b5fc26508 ""
   "c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb" 1737666060 32722 d7379af29a190c3f453aba36302ff5a9 ""
   "c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb" 1737666060 32362 bc3f3eec7ab7d65fe700963d4017d32c ""
@@ -170,12 +171,12 @@
   "d.py" 1791798551 2698 27d3b61f3edbcd4a1cd6e00162fc2831 ""
   "figures/ConfInts.pdf" 1791798551 26923 2e7b1112318b326d943ff52f4145469c ""
   "parameters.py" 1791800464 838 dd9a1290352fcfc6cd513f138f5a88fc ""
-  "project1.aux" 1791806146 3585 e92d20ab056ea35dd2fd391ae073265c "pdflatex"
-  "project1.bbl" 1791805986 0 d41d8cd98f00b204e9800998ecf8427e "biber project1"
-  "project1.out" 1791806146 2008 86e8225783a41b316a4e9a90ab7c3951 "pdflatex"
-  "project1.run.xml" 1791806146 2252 6a1ba97ca6a3073c136db3b2e7830d90 "pdflatex"
-  "project1.tex" 1791806142 14164 182be2ae7b825b46cea282e7c348745b ""
-  "project1.toc" 1791806146 883 54b344bc9eba8181851372ecdeeaece0 "pdflatex"
+  "project1.aux" 1791826276 3742 4cd8bb783ec330556bb994da1dcf7394 "pdflatex"
+  "project1.bbl" 1791826203 0 d41d8cd98f00b204e9800998ecf8427e "biber project1"
+  "project1.out" 1791826276 2195 a95ef479ea71f59e9276319cde89571a "pdflatex"
+  "project1.run.xml" 1791826276 2252 6a1ba97ca6a3073c136db3b2e7830d90 "pdflatex"
+  "project1.tex" 1791826260 14999 94fa733ecf4e989f70e27ad52d662943 ""
+  "project1.toc" 1791826276 997 b94b7f6e4a2f9c114ecac8d613b56071 "pdflatex"
   (generated)
   "project1.aux"
   "project1.bcf"

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.1.24)  12 OCT 2026 13:55
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.1.24)  12 OCT 2026 19:31
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -817,7 +817,7 @@ l.27     Crude
 [5]
 
 [6])
-<figures/ConfInts.pdf, id=365, 713.52406pt x 385.92181pt>
+<figures/ConfInts.pdf, id=370, 713.52406pt x 385.92181pt>
 File: figures/ConfInts.pdf Graphic file (type pdf)
 <use figures/ConfInts.pdf>
 Package pdftex.def Info: figures/ConfInts.pdf  used on input line 176.
@@ -839,6 +839,19 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 
 [9]
 
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 248.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `superscript' on input line 248.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 248.
+
+
+
 [10] (./parameters.py)
 
 [11] (./project1.aux)
@@ -847,24 +860,24 @@ LaTeX2e <2024-11-01> patch level 1
 L3 programming layer <2024-12-25>
  ***********
 Package rerunfilecheck Info: File `project1.out' has not changed.
-(rerunfilecheck)             Checksum: 86E8225783A41B316A4E9A90AB7C3951;2008.
+(rerunfilecheck)             Checksum: A95EF479EA71F59E9276319CDE89571A;2195.
 Package logreq Info: Writing requests to 'project1.run.xml'.
 \openout1 = `project1.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 26808 strings out of 473206
- 507689 string characters out of 5720440
+ 26812 strings out of 473206
+ 507741 string characters out of 5720440
  1767189 words of memory out of 5000000
- 49291 multiletter control sequences out of 15000+600000
+ 49292 multiletter control sequences out of 15000+600000
  568581 words of font info for 75 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  94i,11n,93p,888b,2178s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
-Output written on project1.pdf (12 pages, 267933 bytes).
+<c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
+Output written on project1.pdf (12 pages, 278026 bytes).
 PDF statistics:
- 750 PDF objects out of 1000 (max. 8388607)
- 640 compressed objects within 7 object streams
- 422 named destinations out of 1000 (max. 500000)
- 98 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 762 PDF objects out of 1000 (max. 8388607)
+ 650 compressed objects within 7 object streams
+ 425 named destinations out of 1000 (max. 500000)
+ 106 words of extra memory for PDF output out of 10000 (max. 10000000)
 
