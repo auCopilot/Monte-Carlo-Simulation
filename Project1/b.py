@@ -85,7 +85,13 @@ def control_monte_carlo(N, Delta_s = None):
     Z = L(Delta_s, delta, gamma) - Q(Delta_s, delta)
     # Expectation of control variable
     #E_Z = 0 # Linear term is N(0,1) * delta -> E[Z] = 0
-    E_Z = 1 # Quadratic term i Chi_squared(1) -> E[Z] = 1
+    if m == 1:
+        E_Z = 1 # Quadratic term i Chi_squared(1) -> E[Z] = 1
+    if m == 2:
+        lam1 = 1/2
+        lam2 = 3/2
+        # (f) gives weighting of eigenvalues of two chi_squared(1)
+        E_Z = lam1 * 1 + lam2 * 1
 
 
     # Mean of indicator converges a.s to P(L > x)

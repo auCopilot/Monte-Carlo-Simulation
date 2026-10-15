@@ -17,27 +17,39 @@ def likilihood_ratio(X, mu_p, sigma_p, mu_q, sigma_q):
     return p / q
 
 
-def importance_monte_carlo(N, sample = None):
+import numpy as np
+
+def importance_monte_carlo(
+    N,
+    importance_sample,
+    likelihood_ratio_func,
+    likelihood_ratio_args=None,
+):
     """
-    Importance Monte Carlo simulation to estimate the probability of exceedance of x.
+    Estimate probability of exceedance using importance sampling.
 
-    Key features are that we sample from another distribution that makes the probablily of
-    exceedance more likely, and then we normalize the samples by the likelihood ratio.
+    Parameters
+    ----------
+    N : int
+        Number of simulations.
+    likelihood_ratio_func : callable
+        Function that computes likelihood ratios.
+    likelihood_ratio_args : dict, optional
+        Keyword arguments passed to likelihood_ratio_func.
+    importance_sample : ndarray, optional
+        Samples drawn from the importance distribution.
 
-    Parameters:
-    N (int): Number of simulations
-
-    Returns:
-    float: Estimated probability of exceedance
+    Returns
+    estimate of exceedance probability.
+    variance of estimator.
     """
-    # Draw samples - this time from the importance distribution (expandable for m > 1)
-    if sample is None:
-        importance_sample = np.random.multivariate_normal(mu_q, sigma_s, size = N).T
 
-    # Compute likihood ratio for each sample
+    if likelihood_ratio_args is None:
+        likelihood_ratio_args = {}
 
-
-    weights = likilihood_ratio(importance_sample, mu_p, sigma_p, mu_q, sigma_q)
+    # Compute likelihood ratios
+    weights = likelihood_ratio_func(**likelihood_ratio_args)
+    print("Mean of weights: ", np.mean(weights))
 
     # Simulate N outcomes of L
     loss = L(importance_sample, delta, gamma)
@@ -56,7 +68,20 @@ if __name__ == '__main__':
     from a import crude_monte_carlo
     l_crude, s2_crude = crude_monte_carlo(N)
     print("Importance sampling Monte Carlo simulation: \n")
-    l_importance, s2_importance = importance_monte_carlo(N)
+    importance_sample = np.random.multivariate_normal(
+        mu_q, sigma_s, size=N
+    ).T
+    lr_args = {"X" : importance_sample,
+               "mu_p" : mu_p,
+               "sigma_p" : sigma_p,
+               "mu_q" : mu_q,
+               "sigma_q" : sigma_q,}
+
+    l_importance, s2_importance = importance_monte_carlo(N,
+                                                         importance_sample,
+                                                         likelihood_ratio_func =  likilihood_ratio,
+                                                         likelihood_ratio_args=lr_args)
+
     print("Estimated probability of exceedance of x using importance sampling: ", l_importance)
     print("Variance of MC estimator using importance sampling: ", s2_importance)
     # Variance reduction factor

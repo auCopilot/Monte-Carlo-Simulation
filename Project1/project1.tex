@@ -23,7 +23,7 @@
 \usepackage{dirtytalk}
 \usepackage{enumitem}
 \usepackage{derivative}
-\usepackage{biblatex}
+%\usepackage{biblatex}
 
 \usepackage{svg}  % Enables SVG support
 \usepackage{hyperref} % Enables hyperlinks
@@ -80,7 +80,7 @@ In the parts $(a)$, $(b)$ and $(c)$, we will focus on the one-dimensional case, 
 
 Parameters for the various codes snippets can be seen in the appendix in \autoref{code_params}.
 
-\section{Crude Monte Carlo Simulation}
+\section{Crude Monte Carlo Simulation (a)}
 In this section, we will implement a crude Monte Carlo simulation to estimate the exceedance probability $\mathbb{P}(L > x)$ for the one-dimensional case ($m=1$). We are interested in ${P}(L > x)$. We may introduce the indicator function $\mathbb{I}(L > x)$ of the event $L > x$. If we compute the expectation of the indicator function, we obtain the exceedance probability
 
 \begin{equation}
@@ -104,7 +104,7 @@ is found with a variance of $s^2 = 1.03\cdot 10^{-7}$.
 ]{a.py}
 
 
-\section{Control Variable}
+\section{Control Variable (b)}
 A control variable is now introduced with the aim of reducing the variance of the Monte Carlo estimator. The estimator is now given by
 \begin{equation}
     \ell_{CV} = Y - \beta(Z - \mathbb{E}[Z]),
@@ -142,7 +142,7 @@ Given the results of the pilot study, and the fact that $Z_2$ is not much more c
     label={code_b}
 ]{b.py}
 
-\section{Importance-Sampling}
+\section{Importance-Sampling (c)}
 Since we are interested in estimating a relatively rare event, we can use importance sampling to reduce the variance. We are interested in designing a new distribution under which the event $L > x$ is likely to occur. For numerical stability, it is desirable to choose a distribution that is not too far from the original distribution. If we inspect $L$, it is compromised of a linear and a quadratic term. We may consider if we want to shift the mean of $\Delta_S$ upwards or downwards. Since we have a quadratic term, that is always positive, shifting the mean in a negative direction, will be somewhat dampened by the linear term, as such we would require larger shifting in the negative direction to observe the same effect, therefore, a positive shift is chosen. \vspace{.5cm}
 The expexctation of the loss $L$ is given by
 \begin{equation*}
@@ -167,7 +167,7 @@ Using this design choice, variance reduction on the order of $3000\%$ is achieve
 ]{c.py}
 
 
-\section{Comparison of the methods}
+\section{Comparison of the methods (d)}
 
 To compare the three methods, we examine the confidence intervals for 30 different simulations runs with distinct random seeds. The results are shown in \autoref{fig:comparison}.
 
@@ -185,7 +185,7 @@ The code to produce the plot can be seen in \autoref{code_d}.
     label={code_d}
 ]{d.py}
 
-\section{Closed form expressison of $\mathbb{P}(L > x)$ for the given parameters}
+\section{Closed form expressison of $\mathbb{P}(L > x)$ for the given parameters (e)}
 
 We wish to show that the exceedance probability can be computed in a closed form expression involving the CDF $\phi(x)$ of the standard normal distribution. Given the parameters, $m = 1$, $\delta = 2$, $\Gamma = 1$, $\Sigma_S = 1$ and $x = 10$, we have $\Delta_S \sim \mathcal{N}(0, 1)$ and $L = 2\Delta S + \Delta S^2$. We can rewrite the exceedance probability as
 \begin{equation}
@@ -211,62 +211,175 @@ As long as we can sample from the distribution of $\Delta S$, we can use crude M
 
 For control variable MCS, we do have the requirement that the expectation of the control variable is known in closed form - however this is true in general, and changing the sampling distribution of $\Delta S$ does not change this fact. As such, the control variable MCS can be generalized to other distributions without any modifications other than that the control variable $Z = h(\Delta S)$ has to be chosen such that its expectation $\mathbb{E}[Z]$ is known in closed form.
 
-\section{Cholesky Decomposition}
+\section{Cholesky Decomposition (f)}
 We wish to find a matrix $\tilde{C}$ such that $\Delta_S = \tilde{C}Z$, where $Z \sim \mathcal{N}(0, I_2)$, it follows from definition 3.8 that we can find such a matrix $\tilde{C}$ by performing a Cholesky decomposition of the covariance matrix $\Sigma_S$. We define the upper triangular matrix     $\tilde{C}$ as
-\begin{equation}
+\begin{equation*}
     \tilde{C} = \begin{bmatrix}
-        a & b\\
-        0 & c
+        a & 0\\
+        b & c
     \end{bmatrix},
-\end{equation}
+\end{equation*}
 with unknowns $a, b, c \in \mathbb{R}$, and solve
 \begin{equation}
     \tilde{C}\tilde{C}^T = \begin{bmatrix}
-        a & b\\
-        0 & c
-    \end{bmatrix} \begin{bmatrix}
         a & 0\\
         b & c
+    \end{bmatrix} \begin{bmatrix}
+        a & b\\
+        0 & c
     \end{bmatrix}  = \Sigma_S = \begin{bmatrix}
-        1 & 0.5\\
-        0.5 & 1
+        1 & \frac{1}{2}\\
+        \frac{1}{2} & 1
     \end{bmatrix}.
 \end{equation}
 This produces the following system of equations
 \begin{align*}
-    a^2 + b^2 &= 1\\
-    bc &= 0.5\\
-    c^2 &= 1.
+    a^2  &= 1\\
+    ab &= \frac{1}{2}\\
+    b^2 + c^2 &= 1.
 \end{align*}
-$c^2 \implies c = 1$, and thus $b = 0.5$. Finally, we find $a$ by solving the first equation, yielding $a = \sqrt{1 - b^2} = \sqrt{1 - 0.25} = \sqrt{0.75}$. Thus, the Cholesky decomposition of $\Sigma_S$ is given by
-\begin{equation}
+$a^2 = 1 \implies a = 1$, and thus $b = \frac{1}{2}$. We can than solve $\frac{1}{4} - c^2 = 1 \implies c = \sqrt{1 - \frac{1}{4}} = \sqrt{\frac{3}{4}}$.
+\begin{equation*}
     \tilde{C} = \begin{bmatrix}
-        \sqrt{0.75} & 0.5\\
-        0 & 1
+        1 & \frac{1}{2}\\
+        0 & \sqrt{\frac{3}{4}}
     \end{bmatrix}.
-\end{equation}
+\end{equation*}
 \subsection{Eigen decomposition of $\tilde{C}^T\tilde{C}$}
 
 First we compute $\tilde{C}^T\tilde{C}$:
 \begin{equation}
     \tilde{C}^T\tilde{C} = \begin{bmatrix}
-        \sqrt{0.75} & 0\\
-        0.5 & 1
+        1 & 0\\
+        \frac{1}{2} & \sqrt{\frac{3}{4}}
     \end{bmatrix} \begin{bmatrix}
-        \sqrt{0.75} & 0.5\\
-        0 & 1
+        1 & \frac{1}{2}\\
+        0 & \sqrt{\frac{3}{4}}
     \end{bmatrix} = \begin{bmatrix}
-        0.75 & 0.5\sqrt{0.75}\\
-        0.5\sqrt{0.75} & 1.25
+        \frac{5}{4} & \frac{1}{2}\sqrt{\frac{3}{4}}\\
+        \frac{1}{2}\sqrt{\frac{3}{4}} & \frac{3}{4}
     \end{bmatrix}.
 \end{equation}
 We note that $\tilde{C}^T\tilde{C}$ is a real symmetric matrix, it follows from the spectral theorem that there exists and orthogonal matrix $U$ and a diagonal matrix $\Lambda$ such that
 \begin{equation}
     \tilde{C}^T\tilde{C} = U\Lambda U^T.
+    \label{eq:eigendecomp}
 \end{equation}
-where the columns of $U$ are the eigenvectors of $\tilde{C}^T\tilde{C}$ and the diagonal entries of $\Lambda$ are the corresponding eigenvalues. 
+where the columns of $U$ are the eigenvectors of $\tilde{C}^T\tilde{C}$ and the diagonal entries of $\Lambda$ are the corresponding eigenvalues. Thus, we need to solve the eigenvalue problem
+
+\begin{equation}
+    \text{det}(\tilde{C}^T\tilde{C} - \lambda I) = 0,
+\end{equation}
+
+which yields the characteristic polynomial
+
+\begin{equation*}
+    \left(\frac{5}{4} - \lambda\right)\left(\frac{3}{4} - \lambda\right) - \left(\frac{1}{2}\sqrt{\frac{3}{4}}\right)^2 = 0.
+\end{equation*}
+
+This yeilds the eigenvalues $\lambda_1 = \dfrac{1}{2}, \; \lambda_2 = \dfrac{3}{2}$, now we find the eigenvectors by solving the system of equations
+\begin{equation*}
+    (\tilde{C}^T\tilde{C} - \lambda I)u = 0,
+\end{equation*}
+which yields the eigenvectors
+\begin{equation*}
+    u_1 = \begin{bmatrix} \sqrt{\frac{3}{4}} \\ \frac{1}{2} \end{bmatrix}, \quad u_2 = \begin{bmatrix} -\frac{1}{2} \\ \sqrt{\frac{3}{4}}  \end{bmatrix}.
+\end{equation*}
+and $U$ is given as the matrix with columns $u_1$ and $u_2$, and $\Lambda$ is the diagonal matrix with entries $\lambda_1$ and $\lambda_2$.
+
+The computation is carried out in the code snippet seen in \autoref{code_eigen_decomposition}.
+
+% Normal code listing for the eigen decomposition
+\begin{lstlisting}[
+    caption={Python code for eigen decomposition of $\tilde{C}^T\tilde{C}$},
+    label={code_eigen_decomposition}
+]
+    # Python code for eigen decomposition of C^T C
+    import numpy as np
+
+    # Define the matrix
+    C_T_C = np.array([[5/4, 0.5*np.sqrt(3/4)],
+                      [1/2*np.sqrt(3/4), 3/4]])
+
+    # Compute the eigenvalues and eigenvectors
+    eigenvalues, eigenvectors = np.linalg.eig(C_T_C)
+
+    print("Eigenvalues:", eigenvalues)
+    print("Eigenvectors:", eigenvectors)
+\end{lstlisting}
+\subsection{New expression of L}
+Using our Cholesky decomposition, we have $\Delta S = \tilde{C}Z$, where $Z \sim \mathcal{N}(0, I_2)$. It then follows that we can rewrite $L$ as
+\begin{equation}
+    L = \delta^T\tilde{C}Z + Z^T\tilde{C}^T\Gamma\tilde{C}Z.
+\end{equation}
+Now since $\Gamma = I_2$, this simplifies to
+\begin{equation}
+    L = \delta^T\tilde{C}Z + Z^T\tilde{C}^T\tilde{C}Z.
+\end{equation}
+We define $Z = [Z_1, Z_2]^T$, and use the eigen decomposition \eqref{eq:eigendecomp} to rewrite $L$ as
+\begin{equation}
+    L = \delta^T\tilde{C}Z + Z^TU\Lambda U^TZ = \delta^T\tilde{C}Z + (U^TZ)^T\Lambda U^TZ .
+    \label{eq:Lnew}
+\end{equation}
+Not let $C = \tilde{C}U \implies C^T = U^T\tilde{C}^T$, and $b = C^T\delta = U^T\tilde{C}^T\delta$. If we look at the first term of $L$, and use the fact that $U$ is orthogonal, we have
+\begin{equation}
+    \delta^T\tilde{C}Z = (UU^T\tilde{C}^T\delta)^TZ = (Ub)^TZ = b^TU^TZ.
+    \label{eq:bterm}
+\end{equation}
+Now it is useful to note that the linear transformation $U^TZ \sim \mathcal{N}(0, U^TU)$, orthogonality then gives that
+$U^TZ \sim \mathcal{N}(0, I_2) = Z$. As such \eqref{eq:bterm} simplifies to
+\begin{equation}
+    \delta^T\tilde{C}Z = b^TU^TZ = b^TZ.
+\end{equation}
 
 
+Using this property, again we can rewrite \eqref{eq:Lnew} as
+\begin{equation}
+    L = b^TZ + (U^TZ)^T \Lambda U^TZ = b^TZ + Z^T\Lambda Z,
+\end{equation}
+using \eqref{eq:bterm}. The first term is a inner product of two vectors, and the since $\Lambda$ is diagonal, the second term is a weighted sum of squares of the entries of $Z$ - as such we arrive at the desired expression of $L$:
+\begin{equation}
+    L = b_1Z_1 + b_2Z_2 + \lambda_1Z_1^2 + \lambda_2Z_2^2.
+    \label{eq:Lfinal}
+\end{equation}
+
+\section{Repetition of (a) and (b) with new parameters}
+(a) and (b) are repeated with the new parameters, $m=2$, $\delta = [2, 2]^T$, $\Gamma = I_2$, $\Sigma_S = \begin{bmatrix}
+1 & \frac{1}{2}\\
+\frac{1}{2} & 1
+\end{bmatrix}$ and $x = 15$. Code wise the implementation is identical, however the $m$ variable in the \emph{parameters.py} file is changed to $m = 2$, this updates $\delta$, $\Gamma$ and $\Sigma_S$ accordingly.
+
+\subsection{Repetition of (a)}
+For $N = 10^5$, we obtain an estimate of $\hat{\ell} \approx 0.0153$ with a variance of $s^2 \approx 1.5134\cdot 10^{-7}$.
+
+\subsection{Repetition of (b)}
+For $N = 10^5$, we obtain an estimate of $\hat{\ell} \approx 0.0153$ with a variance of $s^2 \approx 1.1693\cdot 10^{-7}$. One change in (b) is that we have to update the expectation of the control variable $Z_{control} = \Delta S^T\Gamma\Delta S$. However, it follows from \eqref{eq:Lfinal} that the expectation of $Z$ is given by
+\begin{equation*}
+    \mathbb{E}[Z_{control}] = \mathbb{E}[\lambda_1Z_1^2 + \lambda_2Z_2^2] = \lambda_1\mathbb{E}[Z_1^2] + \lambda_2\mathbb{E}[Z_2^2] = \lambda_1\mathbb{E}[\chi^2_1] + \lambda_2\mathbb{E}[\chi^2_1] = \lambda_1 + \lambda_2 = 2,
+\end{equation*}
+where $Z_1, Z_2 \sim \mathcal{N}(0, 1)$ and $\lambda_1 = \frac{1}{2}, \lambda_2 = \frac{3}{2}$ are the eigenvalues of $\tilde{C}^T\tilde{C}$, from (f). This is handled automatically if $m$ is set to $2$ in the \emph{parameters.py} file. This time we see a variance reduction of $\approx 23.0\%$.
+
+
+\section{Exponential tilting (g)}
+We are now interested in importance sampling similar to (c), but for the new parameters. Recall that in extension to exercise 27, we discussed that exponential tilting for exponential families, retains distributional form under a new shifted parameter.
+\begin{equation}
+    \int_A \prod_{i\leq 2} f(z) e^{\theta_i^Tz - \psi^*(\theta_i)} dz, \label{eq:tilt}
+\end{equation}
+Our original distribution is $\Delta S \sim \mathcal{N}(0, \Sigma_S)$, and we can write the density of $\Delta S$ as
+
+\begin{equation*}
+    f(\delta S) = \dfrac{1}{2\pi}|\Sigma_S|^{-\frac{1}{2}} e^{-\frac{1}{2}(\delta S)^T\Sigma_S^{-1}(\delta S)}.
+\end{equation*}
+where $|\Sigma_S| = \frac{3}{4}$.
+
+
+\begin{equation*}
+    f(z) e^{\theta_i^Tz - \psi^*(\theta_i)} = \dfrac{1}{\sqrt{2\pi}} e^{-\frac{1}{2}z^2} e^{\theta_i z - \frac{1}{2}\theta_i^2} = \dfrac{1}{\sqrt{2\pi}} e^{-\frac{1}{2}(z - \theta_i)^2}.
+\end{equation*}
+We see that the new importance sampling distribution from \eqref{eq:tilt} is a joint normal distribution$ (Q_1, Q_2)$, where $ Q_i \sim \mathcal{N}(\theta_i, 1)$, and $Q_1 \perp Q_2$. As such the likelihood ratio is given by
+\begin{equation}
+    \dfrac{f(z)}{g(z)} = \dfrac{\prod_{i\leq 2} f(z_i)}{\prod_{i\leq 2} g(z_i)} = \prod_{i\leq 2} e^{-\theta_i z_i + \frac{1}{2}\theta_i^2}.
+\end{equation}
 
 \newpage
 \section{Appendix}
