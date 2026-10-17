@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.1.24)  17 OCT 2026 14:56
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.1.24)  17 OCT 2026 17:55
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -581,14 +581,14 @@ l.26     #
 [5]
 
 [6])
-<figures/ConfInts.pdf, id=401, 713.52406pt x 385.92181pt>
+<figures/ConfInts.pdf, id=406, 713.52406pt x 385.92181pt>
 File: figures/ConfInts.pdf Graphic file (type pdf)
 <use figures/ConfInts.pdf>
 Package pdftex.def Info: figures/ConfInts.pdf  used on input line 176.
 (pdftex.def)             Requested size: 409.71689pt x 221.60889pt.
+ (./d.py
 
-
-[7 <./figures/ConfInts.pdf>] (./d.py
+[7 <./figures/ConfInts.pdf>]
 
 [8])
 
@@ -619,32 +619,47 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 [10]
 
 [11]
+<figures/2Dest.pdf, id=632, 621.38968pt x 498.42712pt>
+File: figures/2Dest.pdf Graphic file (type pdf)
+<use figures/2Dest.pdf>
+Package pdftex.def Info: figures/2Dest.pdf  used on input line 388.
+(pdftex.def)             Requested size: 204.85844pt x 164.32175pt.
+<figures/2Dvar.pdf, id=633, 605.61198pt x 498.42712pt>
+File: figures/2Dvar.pdf Graphic file (type pdf)
+<use figures/2Dvar.pdf>
+Package pdftex.def Info: figures/2Dvar.pdf  used on input line 389.
+(pdftex.def)             Requested size: 204.85844pt x 168.59596pt.
+ (./g.py
 
-[12] (./parameters.py
+[12 <./figures/2Dest.pdf> <./figures/2Dvar.pdf>])
 
-[13])
+[13] (./parameters.py
 
-[14] (./project1.aux)
+[14]
+
+[15])
+
+[16] (./project1.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 1
 L3 programming layer <2024-12-25>
  ***********
 Package rerunfilecheck Info: File `project1.out' has not changed.
-(rerunfilecheck)             Checksum: 31C2F54A2ED96174AA8A77E2338910C4;3315.
+(rerunfilecheck)             Checksum: 7C5F5A2A515599C3D2C7829F742F1072;3532.
  ) 
 Here is how much of TeX's memory you used:
- 19974 strings out of 473206
- 368468 string characters out of 5720440
- 1341882 words of memory out of 5000000
- 42385 multiletter control sequences out of 15000+600000
+ 20080 strings out of 473206
+ 370014 string characters out of 5720440
+ 1384882 words of memory out of 5000000
+ 42422 multiletter control sequences out of 15000+600000
  568927 words of font info for 76 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  94i,11n,93p,888b,2155s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
-Output written on project1.pdf (15 pages, 333302 bytes).
+<c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex7.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
+Output written on project1.pdf (17 pages, 523371 bytes).
 PDF statistics:
- 959 PDF objects out of 1000 (max. 8388607)
- 836 compressed objects within 9 object streams
- 543 named destinations out of 1000 (max. 500000)
- 146 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1171 PDF objects out of 1200 (max. 8388607)
+ 962 compressed objects within 10 object streams
+ 609 named destinations out of 1000 (max. 500000)
+ 164 words of extra memory for PDF output out of 10000 (max. 10000000)
 

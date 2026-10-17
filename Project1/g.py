@@ -1,3 +1,4 @@
+import matplotlib.pyplot as plt
 from scipy.stats import multivariate_normal
 from parameters import *
 from c import importance_monte_carlo
@@ -62,5 +63,10 @@ for theta in thetas:
 
 # --- 3D surface plot of estimated variance ---
 from plots import *
-three_d_estimate(theta_values, results)
-three_d_variance(theta_values, results)
+fig, ax = three_d_estimate(theta_values, results)
+fig.savefig("figures/2Dest.pdf", bbox_inches="tight")
+plt.close(fig)
+
+fig, ax = three_d_variance(theta_values, results)
+fig.savefig("figures/2Dvar.pdf", bbox_inches="tight")
+plt.close(fig)

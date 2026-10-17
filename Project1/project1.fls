@@ -288,6 +288,19 @@ INPUT c:/texlive/2024/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm
 INPUT c:/texlive/2024/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm10.tfm
 INPUT c:/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm
 INPUT c:/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmti10.tfm
+INPUT ./figures/2Dest.pdf
+INPUT ./figures/2Dest.pdf
+INPUT ./figures/2Dest.pdf
+INPUT ./figures/2Dest.pdf
+INPUT ./figures/2Dest.pdf
+INPUT ./figures/2Dvar.pdf
+INPUT ./figures/2Dvar.pdf
+INPUT ./figures/2Dvar.pdf
+INPUT ./figures/2Dvar.pdf
+INPUT ./figures/2Dvar.pdf
+INPUT ./g.py
+INPUT ./g.py
+INPUT g.py
 INPUT ./parameters.py
 INPUT ./parameters.py
 INPUT parameters.py
@@ -297,6 +310,7 @@ INPUT ./project1.out
 INPUT c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 INPUT c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
 INPUT c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb
+INPUT c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex7.pfb
 INPUT c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb
 INPUT c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb
 INPUT c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb
@@ -312,5 +326,6 @@ INPUT c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb
 INPUT c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb
 INPUT c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb
 INPUT c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb
+INPUT c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb
 INPUT c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb
 INPUT c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb

@@ -374,14 +374,67 @@ We can then introduce the titlted distribution with parameter $\theta = (\theta_
 
 
 \begin{equation*}
-    f(z) e^{\theta_i^Tz - \psi^*(\theta_i)} = \dfrac{1}{\sqrt{2\pi}} e^{-\frac{1}{2}z^2} e^{\theta_i z - \frac{1}{2}\theta_i^2} = \dfrac{1}{\sqrt{2\pi}} e^{-\frac{1}{2}(z - \theta_i)^2}.
+    f(z) e^{\theta^Tz - \psi^*(\theta)} = \dfrac{1}{\sqrt{2\pi}} e^{-\frac{1}{2}z^2} e^{\theta_i z - \frac{1}{2}\theta_i^2} = \dfrac{1}{\sqrt{2\pi}} e^{-\frac{1}{2}(z - \theta_i)^2}.
 \end{equation*}
 We see that the new importance sampling distribution from \eqref{eq:tilt} is a joint normal distribution$ (Q_1, Q_2)$, where $ Q_i \sim \mathcal{N}(\theta_i, 1)$, and $Q_1 \perp Q_2$. As such the likelihood ratio is given by
 \begin{equation}
-    \dfrac{f(z)}{g(z)} = \dfrac{\prod_{i\leq 2} f(z_i)}{\prod_{i\leq 2} g(z_i)} = \prod_{i\leq 2} e^{-\theta_i z_i + \frac{1}{2}\theta_i^2}.
+   \dfrac{d\mathbb{P}}{d \mathbb{Q}}(z) =  \dfrac{f(z)}{g(z)} = \dfrac{\prod_{i\leq 2} f(z_i)}{\prod_{i\leq 2} g(z_i)} = \prod_{i\leq 2} e^{-\theta_i z_i + \frac{1}{2}\theta_i^2},
 \end{equation}
+and we note that we indeed arrive at a new multivariate normal distribution with identity covariance matrix, but with a shifted mean $\theta$. To test different pairs of $\theta_1, \theta_2$, i generate a 2D grid of values, and compute the variance and estimate of the importance sampling estimator for the respective pairs
 
-\newpage
+% Side by side figures:
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.45\textwidth]{figures/2Dest.pdf}
+    \includegraphics[width=0.45\textwidth]{figures/2Dvar.pdf}
+    \caption{Estimate and variance of the importance sampling estimator for different pairs of $\theta_1, \theta_2$., $N = 10^4$ samples.}
+    \label{fig:variance_estimate}
+\end{figure}
+We see that there is a comparably low varaince region, with estimate values similar to the crude MCS estimate in the region $\theta \in [-0.4,0.4] \times [-1,-0.4]$. The code for the exponential tilting is seen in \autoref{code_g}.
+\lstinputlisting[
+    caption={Python code for exponential tilting},
+    label={code_g}
+]{g.py}
+
+\section{Cumlant generating function of L}
+We wish to show that the cumulant generating function of $L$ is given by
+\begin{equation}
+    \psi_L(\theta) = \log\mathbb{E}[e^{\theta L}] = \dfrac{1}{2}\sum_{i = 1}^2\left(\dfrac{\theta^2\beta_i^2}{1-2\theta\lambda_i} - \log(1 - 2\theta\lambda_i)\right).
+\end{equation}
+We recall that $b = C^T\delta$, and $\lambda_i$ are the eigenvalues of $\tilde{C}^T\tilde{C}$. To show the relation above, we introduce the following constant $\gamma_i = \dfrac{b_i}{2\lambda_i}$. Without proof, we are given that
+\begin{equation}
+    \log\mathbb{E}[e^{\theta(Z_i + c)^2}] = (1-2\theta)^{-1/2}e^{\frac{\theta c^2}{1-2\theta}}, \label{eq:noproof}
+\end{equation}
+which holds for $c \in \mathbb{R}$ and $\theta < \frac{1}{2}$. Now, the idea is to rewrite
+$L$ as a sum of two terms if the form $(Z_i + c)^2$, and then use the relation above to compute the cumulant generating function of $L$. Let
+\begin{equation}
+        M_i = (Z_i + \frac{b_i}{2\lambda_i})^2 = Z_i^2 +\dfrac{b_i^2}{4\lambda_i^2} + \dfrac{b_i}{\lambda_i}Z_i.
+\end{equation}
+If we then define $L_i$ as $M_i$ subtracted by $\gamma_i$, then
+\begin{equation}
+    L_i = M_i - \gamma_i^2,
+\end{equation}
+where one then finds that that $L = \sum_{i=1}^2 \lambda_i L_i$ - Note that $L_1 \perp L_2$. We can then compute the cumulant generating function of $L$ as. Now let $\theta_i = \theta\lambda_i$, then 
+\begin{equation}
+    \psi_L(\theta) = \log\mathbb{E}[e^{\theta L}] = \log\mathbb{E}[e^{\sum_{i=1}^2 \theta_i L_i}] = \log\mathbb{E}[e^{\theta_1 L_1}e^{\theta_2 L_2}] 
+\end{equation}
+since $L_1 \perp L_2$, we can write
+\begin{equation}
+    \psi_L(\theta) = \log\mathbb{E}[e^{\theta_1 L_1}]\mathbb{E}[e^{\theta_2 L_2}] = \log\mathbb{E}[e^{\theta_1 L_1}] + \log\mathbb{E}[e^{\theta_2 L_2}] =
+\end{equation}
+$$\log\mathbb{E}[e^{\theta_1 M_1}] + \log\mathbb{E}[e^{\theta_2M_2}] - \log\mathbb{E}[e^{\theta_1\gamma_1}] - \log\mathbb{E}[e^{\theta_2\gamma_2}] = $$
+$$\log\mathbb{E}[e^{\theta_1 M_1}] + \log\mathbb{E}[e^{\theta_2M_2}] - \theta_1\gamma_1^2 - \theta_2\gamma_2^2.$$
+Now we assume $\theta < \frac{1}{2}$ and use \eqref{eq:noproof} to compute the terms containing $M_i$, and we find that above equation simplifies to
+\begin{equation}
+    \psi_L(\theta) = \sum_{i=1}^2 \log(\mathbb{E}[e^{\theta_i M_i}]) - \theta_i\gamma_i = \sum_{i=1}^2 \left(-\frac{1}{2}\log(1-2\theta_i) + \frac{\theta_i \gamma_i^2}{(1-2\theta_i)} - \theta_i\gamma_i^2\right) =
+\end{equation}
+$$
+    \sum_{i=1}^2 \left(-\frac{1}{2}\log(1-2\theta_i) + \frac{\theta_i \gamma_i^2- \theta_i\gamma_i^2(1-2\theta_i)}{(1-2\theta_i)}\right) = \sum_{i=1}^2 \left(-\frac{1}{2}\log(1-2\theta_i) + \frac{2\theta_i^2\gamma_i^2}{(1-2\theta_i)}\right),
+$$
+finally, we can substitute back $\theta_i = \theta\lambda_i$ and $\gamma_i = \frac{b_i}{2\lambda_i}$ to obtain the desired result
+\begin{equation}
+    \sum_{i=1}^2 \left(-\frac{1}{2}\log(1-2\theta_i) + \frac{2\theta^2\lambda_i^2\dfrac{b_i^2}{4\lambda_i^2}}{(1-2\theta\lambda_i)}\right) = \dfrac{1}{2}\sum_{i = 1}^2\left(\dfrac{\theta^2b_i^2}{(1-2\theta\lambda_i)} - \log(1 - 2\theta\lambda_i)\right) \square
+\end{equation}
 \section{Appendix}
 \lstinputlisting[
     caption={parameters.py - Parameters for the various code snippets},

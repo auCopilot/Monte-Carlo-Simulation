@@ -12,9 +12,6 @@ def indicator(x, L):
     # Exceedance of x
     return L > x
 
-
-
-
 if m == 1:
 
     sigma_s = np.ones((m, m))
@@ -88,7 +85,6 @@ import seaborn as sns
 from scipy.stats import norm
 
 Nd = 10000
-
 SIMULATION_RUNS = 30
 plot_n = np.arange(1, SIMULATION_RUNS + 1)
 
