@@ -2,27 +2,16 @@
 Code for task (a) - Crude monte carlo
 
 """
-
 from parameters import *
+np.random.seed(0)
+N = 100000
+if m == 1:
+    sampling_dist = np.random.normal(loc = 0, scale = 1, size = (1,N))
+if m == 2:
+    sampling_dist = np.random.multivariate_normal(np.zeros(2), sigma_s, size = N).T
 
-def indicator(x, L):
-    # Exceedance of x
-    return L > x
 
-def L(Delta_s, delta, gamma):
-    """L for N simulations
-
-    input:
-    N (int): Number of simulations
-    Delta_S: N(0, Sigma_S) of shape (m, N) samples
-    gamma: vector of size m
-    delta: vector of size m
-    """
-    # Returns (N,) losses
-    L = delta.T @ Delta_s + np.sum(Delta_s * (gamma @ Delta_s), axis=0)
-    return L
-
-def crude_monte_carlo(N, Delta_s= None):
+def crude_monte_carlo(N, sampling_dist):
     """
     Crude Monte Carlo simulation to estimate the probability of exceedance of x.
 
@@ -33,11 +22,9 @@ def crude_monte_carlo(N, Delta_s= None):
     float: Estimated probability of exceedance
     """
 
-    if Delta_s is None:
-        Delta_s = np.random.multivariate_normal(np.zeros(m), sigma_s, size = N).T
 
     # Simulate N outcomes of L
-    loss = L(Delta_s, delta, gamma)
+    loss = L(sampling_dist)
 
     # Mean of indicator converges a.s to P(L > x)
     exeedance = indicator(x, loss)
@@ -49,9 +36,7 @@ def crude_monte_carlo(N, Delta_s= None):
 
 if __name__ == "__main__":
     print("Crude Monte Carlo simulation: \n")
-    np.random.seed(0)
-    N = 100000
     # Estimate and variance of estimator
-    l, s2 = crude_monte_carlo(N)
+    l, s2 = crude_monte_carlo(N, sampling_dist)
     print("Estimated probability of exceedance of x: ", l)
     print("Variance of MC estimator: ", s2)

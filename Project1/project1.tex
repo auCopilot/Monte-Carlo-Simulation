@@ -361,16 +361,16 @@ where $Z_1, Z_2 \sim \mathcal{N}(0, 1)$ and $\lambda_1 = \frac{1}{2}, \lambda_2 
 
 
 \section{Exponential tilting (g)}
-We are now interested in importance sampling similar to (c), but for the new parameters. Recall that in extension to exercise 27, we discussed that exponential tilting for exponential families, retains distributional form under a new shifted parameter.
+We are now interested in importance sampling similar to (c), but for the new parameters. In the previous section we have shown that we can express $L$ as a function of $Z$, rather that $\Delta S$, this allows us to perform importance sampling from multivariate normal with identity covariance matrix. Recall that in extension to exercise 27, we discussed that exponential tilting for exponential families, retains distributional form under a new shifted parameter.
 \begin{equation}
     \int_A \prod_{i\leq 2} f(z) e^{\theta_i^Tz - \psi^*(\theta_i)} dz, \label{eq:tilt}
 \end{equation}
-Our original distribution is $\Delta S \sim \mathcal{N}(0, \Sigma_S)$, and we can write the density of $\Delta S$ as
+Our original distribution is $Z \sim \mathcal{N}(0, I_2)$, and we can write the density of $Z$ as
 
 \begin{equation*}
-    f(\delta S) = \dfrac{1}{2\pi}|\Sigma_S|^{-\frac{1}{2}} e^{-\frac{1}{2}(\delta S)^T\Sigma_S^{-1}(\delta S)}.
+    f(z) = \dfrac{1}{2\pi}e^{-\frac{1}{2}z^T(z)}.
 \end{equation*}
-where $|\Sigma_S| = \frac{3}{4}$.
+We can then introduce the titlted distribution with parameter $\theta = (\theta_1, \theta_2)\in \mathbb{R}^2$ as
 
 
 \begin{equation*}

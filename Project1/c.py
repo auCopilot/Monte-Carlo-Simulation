@@ -3,6 +3,9 @@ Monte Carlo with importance sampling for variance reduction
 """
 from a import indicator, L
 from parameters import *
+N = 10000
+np.random.seed(0)
+sampling_dist = np.random.normal(loc = 0, scale = 1, size = (1, N))
 
 def likilihood_ratio(X, mu_p, sigma_p, mu_q, sigma_q):
     """
@@ -24,6 +27,7 @@ def importance_monte_carlo(
     importance_sample,
     likelihood_ratio_func,
     likelihood_ratio_args=None,
+    use_sigma_s = True,
 ):
     """
     Estimate probability of exceedance using importance sampling.
@@ -49,10 +53,9 @@ def importance_monte_carlo(
 
     # Compute likelihood ratios
     weights = likelihood_ratio_func(**likelihood_ratio_args)
-    print("Mean of weights: ", np.mean(weights))
 
     # Simulate N outcomes of L
-    loss = L(importance_sample, delta, gamma)
+    loss = L(importance_sample, use_sigma_s = use_sigma_s)
 
     # Mean of indicator converges a.s to P(L > x), weighted by the likihood ratio
     exeedance = indicator(x, loss) * weights
@@ -63,10 +66,9 @@ def importance_monte_carlo(
     return exeedance_prop, variance
 
 if __name__ == '__main__':
-    N = 10000
-    np.random.seed(0)
+
     from a import crude_monte_carlo
-    l_crude, s2_crude = crude_monte_carlo(N)
+    l_crude, s2_crude = crude_monte_carlo(N, sampling_dist)
     print("Importance sampling Monte Carlo simulation: \n")
     importance_sample = np.random.multivariate_normal(
         mu_q, sigma_s, size=N

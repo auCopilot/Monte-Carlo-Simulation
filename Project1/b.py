@@ -2,8 +2,10 @@
 We introduce a control variable to reduce the varinace.
 """
 # Same as in (a)
-from a import L, indicator, crude_monte_carlo
+from a import crude_monte_carlo
 from parameters import *
+np.random.seed(0)
+N = 10000
 
 # Use Q as control variable
 def Q(Delta_s,  delta):
@@ -57,10 +59,7 @@ def compute_correlation(Y, Z):
     correlation = cov_YZ / np.sqrt(var_Y * var_Z)
     return correlation
 
-
-
-
-def control_monte_carlo(N, Delta_s = None):
+def control_monte_carlo(N, sampling_dist):
     """
     Control variate Monte Carlo simulation to estimate the probability of exceedance of x.
 
@@ -71,10 +70,8 @@ def control_monte_carlo(N, Delta_s = None):
     float: Estimated probability of exceedance
     """
 
-    if Delta_s is None:
-        Delta_s = np.random.multivariate_normal(np.zeros(m), sigma_s, size = N).T
     # Simulate N outcomes of L
-    loss = L(Delta_s, delta, gamma)
+    loss = L(sampling_dist)
 
     # Compute control variable
 
@@ -82,21 +79,17 @@ def control_monte_carlo(N, Delta_s = None):
     # #Z = Q(Delta_s, delta)
 
     # Quadratic term, corr approx 0.4
-    Z = L(Delta_s, delta, gamma) - Q(Delta_s, delta)
+    Z = L(sampling_dist) - Q(sampling_dist, delta)
     # Expectation of control variable
     #E_Z = 0 # Linear term is N(0,1) * delta -> E[Z] = 0
     if m == 1:
         E_Z = 1 # Quadratic term i Chi_squared(1) -> E[Z] = 1
     if m == 2:
-        lam1 = 1/2
-        lam2 = 3/2
         # (f) gives weighting of eigenvalues of two chi_squared(1)
-        E_Z = lam1 * 1 + lam2 * 1
-
+        E_Z = eigenvalues[0]*1 + eigenvalues[1]*1
 
     # Mean of indicator converges a.s to P(L > x)
     exeedence = indicator(x, loss)
-
 
     # optimal coeffcient
     beta_opt = compute_optimal_coefficients(exeedence, Z)
@@ -114,10 +107,9 @@ def control_monte_carlo(N, Delta_s = None):
 
 if __name__ == '__main__':
     # Correlation subrun
-    np.random.seed(0)
     M = 1000
     Delta_s = np.random.multivariate_normal(np.zeros(m), sigma_s, size=M).T
-    loss = L(Delta_s, delta, gamma)
+    loss = L(Delta_s)
     Y = indicator(x, loss)
     # Compute correlation between linear approximation Q, and second term of L
     Z = np.zeros((2,M))
@@ -128,7 +120,6 @@ if __name__ == '__main__':
     print("Sample Correlation of quadratic term and exceedance indicator: ", correlation[1])
 
     print("Control variate Monte Carlo simulation: \n")
-    N = 10000
     Delta_s = np.random.multivariate_normal(np.zeros(m), sigma_s, size=N).T
     # Estimate and variance of estimator
     l_crude, s2_crude = crude_monte_carlo(N, Delta_s)
