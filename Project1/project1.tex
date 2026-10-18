@@ -435,6 +435,59 @@ finally, we can substitute back $\theta_i = \theta\lambda_i$ and $\gamma_i = \fr
 \begin{equation}
     \sum_{i=1}^2 \left(-\frac{1}{2}\log(1-2\theta_i) + \frac{2\theta^2\lambda_i^2\dfrac{b_i^2}{4\lambda_i^2}}{(1-2\theta\lambda_i)}\right) = \dfrac{1}{2}\sum_{i = 1}^2\left(\dfrac{\theta^2b_i^2}{(1-2\theta\lambda_i)} - \log(1 - 2\theta\lambda_i)\right) \square
 \end{equation}
+
+
+\section{Choosing $\theta$ based on the cumulant generating function}
+One heuristic for choosing $\theta$, is to choose it in such a manner that the event $L > x$ is no longer rare. From section 6 in the SupplNotes, we know that the mean under the tilted distibution can be found as
+\begin{equation*}
+    \psi_L'(\theta) = \mathbb{E}_\theta[L],
+\end{equation*}
+so we can solve for $\theta$ such that $\psi_L'(\theta) = x = 15$, such that this event is the expected value under the new distribution. We find
+\begin{equation}
+    \psi_L'(\theta) = \dfrac{1}{2}\sum_{i = 1}^2\left(\dfrac{2\theta b_i^2(1-2\theta\lambda_i) + 2\theta^2b_i^2\lambda_i}{(1-2\theta\lambda_i)^2} + \dfrac{2\lambda_i}{(1 - 2\theta\lambda_i)}\right)  =\sum_{i = 1}^2 \dfrac{\theta b_i^2(1-\theta\lambda_i)}{(1-2\theta\lambda_i)^2} + \dfrac{\lambda_i}{(1 - 2\theta\lambda_i)}.
+\end{equation}
+We can now solve for $\theta$ such that $\psi_L'(\theta) = 15$, under the constraint that $max(\lambda_i)\theta < \frac{1}{2} \implies \theta < \dfrac{1}{3}$, since $max(\lambda_i) = \frac{3}{2}$.
+\subsection{Distribution under the shifted measure}
+Before we set out to solve for $\theta$, we can also compute the distribution of $L$ under the new measure. We have that
+\begin{equation}
+    \mathbb{P}_\theta(B) = \int_B f(z)e^{\theta L - \psi_L(\theta)} dz,
+\end{equation}
+since $\psi_L(\theta)$ is independent of $z$, we can write
+\begin{equation}
+    \mathbb{P}_\theta(B) = \int_B f(z)e^{\theta L} dz e^{-\psi_L(\theta)} = e^{-\psi_L(\theta)}\int_B f(z)e^{\theta L} dz,
+    \end{equation}
+where $e^{-\psi_L(\theta)}$ is a normalization constant. If we look at the integrand, in the latter integral, and recall that $L(z) = b^Tz + z^T\Lambda z$, we can write
+\begin{equation}
+    f(z)e^{\theta L} = \dfrac{1}{2\pi}e^{-\frac{1}{2}z^Tz}e^{\theta(b^Tz + z^T\Lambda z)} = \dfrac{1}{2\pi}e^{-\frac{1}{2}z^Tz + \theta b^Tz + \theta z^T\Lambda z} = e^{-\frac{1}{2}z^T(I_2 - 2\theta\Lambda)z + \theta b^Tz}, 
+\end{equation}
+We wish to complete the square, let $A = I_2 - 2\theta\Lambda$, we can write the exponent as
+\begin{equation}
+    -\frac{1}{2}z^TAz + \theta b^Tz = -\frac{1}{2}(z - A^{{-1}}\theta b)^TA(z - A^{-1}\theta b) + \frac{1}{2}\theta b^TA^{-1}\theta b.
+\end{equation}
+thus we get the normal kernel 
+\begin{equation}
+    e^{-\frac{1}{2}(z - A^{-1}\theta b)^TA(z - A^{-1}\theta b)}
+    \end{equation}
+and thus the distribution of $L$ under the new measure is given by
+\begin{equation*}
+    e^{\psi_L(\theta)}f(z)e^{\theta L} \sim N(\theta A^{-1}b, A^{-1}).
+\end{equation*}
+It is useful to note that $A$ is a diagonal matrix, which allows us to sample from independent normal distributions, and making the likelihood ratio readily computable.
+\subsection{Algorithm}
+We can now use above results to implement an algorithm for importance sampling is as follows:
+\begin{enumerate}
+    \item Solve for $\theta$ such that $\psi_L'(\theta) = x$, under the constraint that $max(\lambda_i)\theta < \frac{1}{2}$.
+    \item Compute the distribution of $L$ under the new measure, which is given by $N(\theta A^{-1}b, A^{-1})$.
+    \item Sample from the new distribution and compute the likelihood ratio.
+    \item Compute the estimate of the exceedance probability using the samples and likelihood ratios.
+\end{enumerate}
+recall that the likelihood ratio is given by the inverse of the exponential tilting, which is given by
+\begin{equation}
+    \dfrac{d\mathbb{P}}{d \mathbb{Q}}(z) =  e^{-\theta L + \psi_L(\theta)}.
+\end{equation}
+
+
+
 \section{Appendix}
 \lstinputlisting[
     caption={parameters.py - Parameters for the various code snippets},

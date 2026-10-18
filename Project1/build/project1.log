@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.5.21)  14 OCT 2026 12:45
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.5.21)  18 OCT 2026 22:44
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -568,32 +568,28 @@ Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on in
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.27     Crude 
-               Monte Carlo simulation to estimate the probability of exceeda... [1])
+l.26     #
+           Simulate N outcomes of L [1]) (./b.py
 
-[2] (./b.py
+[2]
 
 [3]
 
-[4])
+[4]) (./c.py
 
-[5] (./c.py
+[5]
 
 [6])
-<figures/ConfInts.pdf, id=401, 713.52406pt x 385.92181pt>
+<figures/ConfInts.pdf, id=420, 713.52406pt x 385.92181pt>
 File: figures/ConfInts.pdf Graphic file (type pdf)
 <use figures/ConfInts.pdf>
 Package pdftex.def Info: figures/ConfInts.pdf  used on input line 176.
 (pdftex.def)             Requested size: 409.71689pt x 221.60889pt.
+ (./d.py
 
+[7 <./figures/ConfInts.pdf>]
 
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-(./d.py
-
-[7]
-
-[8 <./figures/ConfInts.pdf>])
+[8])
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 188.
@@ -622,30 +618,62 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 [10]
 
 [11]
+<figures/2Dest.pdf, id=647, 621.38968pt x 498.42712pt>
+File: figures/2Dest.pdf Graphic file (type pdf)
+<use figures/2Dest.pdf>
+Package pdftex.def Info: figures/2Dest.pdf  used on input line 388.
+(pdftex.def)             Requested size: 204.85844pt x 164.32175pt.
+<figures/2Dvar.pdf, id=648, 605.61198pt x 498.42712pt>
+File: figures/2Dvar.pdf Graphic file (type pdf)
+<use figures/2Dvar.pdf>
+Package pdftex.def Info: figures/2Dvar.pdf  used on input line 389.
+(pdftex.def)             Requested size: 204.85844pt x 168.59596pt.
+ (./g.py
 
-[12] (./parameters.py)
+[12 <./figures/2Dest.pdf> <./figures/2Dvar.pdf>])
 
-[13] (build/project1.aux)
+[13]
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 440.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\theta' on input line 440.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 440.
+
+
+
+[14] (./parameters.py
+
+[15]
+
+[16])
+
+[17] (build/project1.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-04-29>
  ***********
 Package rerunfilecheck Info: File `project1.out' has not changed.
-(rerunfilecheck)             Checksum: 31C2F54A2ED96174AA8A77E2338910C4;3315.
+(rerunfilecheck)             Checksum: 52544CF6C07511BD0F49043F69E3ACCF;4220.
  ) 
 Here is how much of TeX's memory you used:
- 19901 strings out of 469590
- 367276 string characters out of 5474519
- 1320806 words of memory out of 5000000
- 45969 multiletter control sequences out of 15000+600000
+ 20090 strings out of 469590
+ 369880 string characters out of 5474519
+ 1374806 words of memory out of 5000000
+ 46021 multiletter control sequences out of 15000+600000
  636915 words of font info for 80 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 94i,11n,93p,890b,2178s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
-Output written on build/project1.pdf (14 pages, 328134 bytes).
+ 94i,11n,93p,890b,2155s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
+Output written on build/project1.pdf (18 pages, 528210 bytes).
 PDF statistics:
- 892 PDF objects out of 1000 (max. 8388607)
- 771 compressed objects within 8 object streams
- 491 named destinations out of 1000 (max. 500000)
- 146 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1206 PDF objects out of 1440 (max. 8388607)
+ 996 compressed objects within 10 object streams
+ 625 named destinations out of 1000 (max. 500000)
+ 188 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -4,7 +4,7 @@ Monte Carlo with importance sampling for variance reduction
 from a import indicator, L
 from parameters import *
 N = 10000
-np.random.seed(0)
+np.random.seed(1)
 sampling_dist = np.random.normal(loc = 0, scale = 1, size = (1, N))
 
 def likilihood_ratio(X, mu_p, sigma_p, mu_q, sigma_q):
@@ -53,7 +53,7 @@ def importance_monte_carlo(
 
     # Compute likelihood ratios
     weights = likelihood_ratio_func(**likelihood_ratio_args)
-
+    # Diagnosis for LR should be around 1: print("Mean of weights", np.mean(weights))
     # Simulate N outcomes of L
     loss = L(importance_sample, use_sigma_s = use_sigma_s)
 

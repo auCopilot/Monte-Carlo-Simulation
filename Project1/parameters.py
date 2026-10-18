@@ -46,10 +46,11 @@ if m == 2:
 
     # Compute the eigenvalues and eigenvectors
     eigenvalues, U = np.linalg.eig(C_T_C)
+    eigenvalues = np.real(eigenvalues)
     C_tilde = np.array([[1, 1 / 2],
                         [0, np.sqrt(3 / 4)]])
     C = C_tilde @ U
-    b = np.real(C.T @ delta)
+    b = np.real(C.T @ delta).ravel()
 
 
     def L(X, use_sigma_s = True):
