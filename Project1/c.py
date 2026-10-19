@@ -4,10 +4,10 @@ Monte Carlo with importance sampling for variance reduction
 from a import indicator, L
 from parameters import *
 N = 10000
-np.random.seed(1)
+np.random.seed(0)
 sampling_dist = np.random.normal(loc = 0, scale = 1, size = (1, N))
 
-def likilihood_ratio(X, mu_p, sigma_p, mu_q, sigma_q):
+def likelihood_ratio(X, mu_p, sigma_p, mu_q, sigma_q):
     """
     We use another normal distribution with greater mean as importance sampling.
     Compute dP(X) / dQ(X), where:
@@ -81,7 +81,7 @@ if __name__ == '__main__':
 
     l_importance, s2_importance = importance_monte_carlo(N,
                                                          importance_sample,
-                                                         likelihood_ratio_func =  likilihood_ratio,
+                                                         likelihood_ratio_func =  likelihood_ratio,
                                                          likelihood_ratio_args=lr_args)
 
     print("Estimated probability of exceedance of x using importance sampling: ", l_importance)

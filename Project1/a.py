@@ -1,6 +1,5 @@
 """
 Code for task (a) - Crude monte carlo
-
 """
 from parameters import *
 np.random.seed(0)

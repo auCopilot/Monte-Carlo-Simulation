@@ -33,7 +33,7 @@ def likelihood_ratio(importance_sample, theta):
 
 
 np.random.seed(0)
-N = 10**4
+N = 10**5
 results = {}
 theta_values = np.linspace(-1, 1/3, 50)
 

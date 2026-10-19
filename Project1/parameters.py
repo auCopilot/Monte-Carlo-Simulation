@@ -18,7 +18,7 @@ if m == 1:
 
     x = 10
 
-    def L(X, kw = None):
+    def L(X, use_sigma_s = True):
         """L for N simulations, keyword added for interchangeability of m = 1 or 2
         input:
         N (int): Number of simulations
@@ -31,15 +31,35 @@ if m == 1:
         L = delta.T @ X + np.sum(X * (gamma @ X), axis=0)
         return L
 
+    ### (c) ###
+
+    # Q measure paramters
+    mu_q = np.ones(m) * np.sqrt(10) - 1
+    sigma_q = sigma_s
+
+    # P measure parameters
+    mu_p = np.zeros(m)
+    sigma_p = sigma_s
+
+    ######## (d) ########
+    import seaborn as sns
+    from scipy.stats import norm
+
+    Nd = 10000
+    SIMULATION_RUNS = 30
+    plot_n = np.arange(1, SIMULATION_RUNS + 1)
+    methods = ["Crude Monte Carlo", "Control Variable", "Importance Sampling"]
+    colors = sns.color_palette("colorblind", 3)
+
+
 
 if m == 2:
+    # Updates the parameters accordingly, when we run the simulations
 
     sigma_s = np.array([[1, 0.5], [0.5, 1]])
-
-
-
     x = 15
 
+    # For use in (g) and (h)
     # Define the matrix
     C_T_C = np.array([[0.75, 0.5 * np.sqrt(0.75)],
                       [0.5 * np.sqrt(0.75), 1.25]])
@@ -47,11 +67,11 @@ if m == 2:
     # Compute the eigenvalues and eigenvectors
     eigenvalues, U = np.linalg.eig(C_T_C)
     eigenvalues = np.real(eigenvalues)
+
     C_tilde = np.array([[1, 1 / 2],
                         [0, np.sqrt(3 / 4)]])
     C = C_tilde @ U
-    b = np.real(C.T @ delta).ravel()
-
+    b = np.real(C.T @ delta).flatten()
 
     def L(X, use_sigma_s = True):
         """L for N simulations
@@ -70,29 +90,3 @@ if m == 2:
             lam2 = np.real(eigenvalues[1])
             L = b[0] * X[0, :] + b[1] * X[1, :] + lam1 * np.pow(X[0, :], 2) + lam2 * np.pow(X[1 , :], 2)
             return L
-
-### (c) ###
-
-# Q measure paramters
-mu_q = np.ones(m) * np.sqrt(10) - 1
-sigma_q = sigma_s
-
-# P measure parameters
-mu_p = np.zeros(m)
-sigma_p = sigma_s
-
-######## (d) ########
-import seaborn as sns
-from scipy.stats import norm
-
-Nd = 10000
-SIMULATION_RUNS = 30
-plot_n = np.arange(1, SIMULATION_RUNS + 1)
-
-methods = ["Crude Monte Carlo", "Control Variable", "Importance Sampling"]
-colors = sns.color_palette("colorblind", 3)
-
-def confidence_interval(s, l , N, level = 0.05):
-    """Compute confidence interval, equation (1.2)"""
-    z_alpha = norm.ppf(1 - level)
-    return (l - z_alpha*s / np.sqrt(N), l + z_alpha*s / np.sqrt(N) )

@@ -69,32 +69,70 @@
  %Table of contents
  \tableofcontents
  \thispagestyle{empty}
+\newpage
+\section*{Declaration of use of GAI tools}
+
+\noindent
+\textbf{I used generative artificial intelligence (GAI)}
+ I have used GPT 5.6 Deepthink
+\vspace{1.5cm}
+
+\noindent\rule{\textwidth}{0.4pt}
+
+\vspace{0.5cm}
+
+\noindent
+\textbf{I used GAI tools in the following way}
+
+\begin{itemize}[leftmargin=1.5em, itemsep=0.3em]
+    \item Code debugging.
+    \item Generation of code for creating plots and figures.
+    \item Autocompletion of code snippets and text.
+    \item Guidance and help with understanding specfic concepts and methods.
+\end{itemize}
+
+\vspace{0.5cm}
+Example prompts could be:
+\begin{itemize}[leftmargin=1.5em, itemsep=0.3em]
+    \item "What causes the numpy broadcasting error in this code snippet?: (Paste of code snippet)"
+    \item "Generate plotting code the visualize the confidence intervals of the 30 simulation runs i compute in this code snippet: (Paste of code snippet)"
+    \item "Help me understand how to complete the square in a matrix expression."
+\end{itemize}
+\thispagestyle{empty}
+
+
 \end{titlepage}
 \section{Introduction}
 
 In this project, we will investigate the use of Monte Carlo simulation (MCS)  to estimate the exceedance probability $\mathbb{P}(L > x)$ of a loss $$ L = \delta^T\Delta S + \Delta S^T\Gamma\Delta S,$$
-where, $delta \in \mathbb{R}^m$, $\Gamma \in \mathbb{R}^{m\times m}$ and $\Delta S \sim \mathcal{N}(0, \Sigma_S)$ is a (multivariate) normal random variable. The exceedance probability is the probability that the loss $L$ exceeds a certain threshold $x = 10$. \vspace{.5cm}
+where, $delta \in \mathbb{R}^m$, $\Gamma \in \mathbb{R}^{m\times m}$ and $\Delta S \sim \mathcal{N}(0, \Sigma_S)$ is a (multivariate) normal random variable. \vspace{.5cm}
 
+In the parts $(a)$, $(b)$ and $(c)$, we will focus on the one-dimensional case, $m= 1$. These three parts will compare crude MCS with MCS where we introduce control variates and importance samplingm respectively. In part $(d)$, the differences of these methods are visuallized by comparison of the confidence intervals of the estimates that are obtained from each method.
+In part (e) we derive a closed form expression for the exceedance probability $\mathbb{P}(L > x)$ for the given parameters, and discuss how this can be generalized to other distributions. 
 
-In the parts $(a)$, $(b)$ and $(c)$, we will focus on the one-dimensional case, $m= 1$. These three parts will compare crude MCS with MCS where we introduce control variates and importance samplingm respectively. In part $(d)$, the differences of these methods are visuallized by comparison of the confidence intervals of the estimates that are obtained from each method. \vspace{.5cm}
+ \vspace{.5cm}
+In parts $(f)$, $(g)$ and $(h)$, we will consider the two-dimensional case, $m = 2$. In part $(f)$, we will perform a Cholesky decomposition of the covariance matrix $\Sigma_S$, and use this to rewrite $L$ as a function of a standard normal random variable. In part $(g)$, we will implement importance sampling using exponential tilting, in part $(h)$ we derive results for the cumulant generating function of $L$, and in part $(i)$ we will discuss how to choose the tilting parameter $\theta$ based on the cumulant generating function of $L$. \vspace{.5cm}
+
+Finally, in part $(j)$, we dicuss how stratified sampling conceptually could be used to estimate the exceedance probability.
+
 
 Parameters for the various codes snippets can be seen in the appendix in \autoref{code_params}.
 
 \section{Crude Monte Carlo Simulation (a)}
 In this section, we will implement a crude Monte Carlo simulation to estimate the exceedance probability $\mathbb{P}(L > x)$ for the one-dimensional case ($m=1$). We are interested in ${P}(L > x)$. We may introduce the indicator function $\mathbb{I}(L > x)$ of the event $L > x$. If we compute the expectation of the indicator function, we obtain the exceedance probability
 
-\begin{equation}
+\begin{equation*}
     \mathbb{P}(L > x) = \mathbb{E}[\mathbb{I}(L > x)] = 0\cdot\mathbb{P}(L > x) + 1\cdot\mathbb{P}(L > x) = \mathbb{P}(L > x),
-\end{equation}
+\end{equation*}
 by the bernoulli property of the indicator function. We estimate the exceedance probability by use of the following Monte Carlo estimator
-\begin{equation}
+\begin{equation*}
     \hat\ell = \frac{1}{N}\sum_{i=1}^{N} \mathbb{I}(L_i > x) \xrightarrow[N \to \infty]{a.s} \mathbb{E}[\mathbb{I}(L > x)],
-\end{equation}
+\end{equation*}
 by the law of large numbers. The crude Monte Carlo simulation is implemented in the code snippet seen in \autoref{code_a}. A estimate of
 \begin{equation*}
     \hat{\ell} \approx 0.0103
 \end{equation*}
-is found with a variance of $s^2 = 1.03\cdot 10^{-7}$.
+is found with a variance of $s^2 = 1.03\cdot 10^{-7}$, for $N = 10^5$.
 
 
 % Import the code from a.py
@@ -127,7 +165,7 @@ and the second one is the quadratic term of L given by:
 \begin{equation*}
     Z_2 = \Delta S^T\Gamma\Delta S.
 \end{equation*}
-Since $m, \, \Gamma = 1$, and the fact that $Delta_S$ is standard normal, $Z_1 \sim \delta\mathcal{N}(0, 1)$ and $Z_2 \sim \chi^2(1)$, and as such their expectations are given by
+Since $m, \, \Gamma = 1$, and the fact that $\Delta S$ is standard normal, $Z_1 \sim \delta\mathcal{N}(0, 1)$ and $Z_2 \sim \chi^2(1)$, and as such their expectations are given by
 \begin{equation*}
     \mathbb{E}[Z_1] = 0, \quad \mathbb{E}[Z_2] = 1.
 \end{equation*}
@@ -135,7 +173,7 @@ To test which control variable is the best, a small pilot study is conducted to 
 \begin{equation*}
     \text{Corr}(Y, Z_1) \approx 0.25, \quad \text{Corr}(Y, Z_2) \approx 0.37.
 \end{equation*}
-Given the results of the pilot study, and the fact that $Z_2$ is not much more computationally expensive to compute than $Z_1$, $Z_2$ is chosen as a control variable. This leads to a reduction in variance of approximately $26\%$ compared to the crude MCS. Since crude MCS has a $\sqrt{N}$ convergence rate, and we we roughly double the number of operations by computing the control variable, it seem reasonable to stick with crude MCS and double the number of samples, in order to achieve a reduction in variance of the order $\sqrt{2}$. 
+Given the results of the pilot study, and the fact that $Z_2$ is not much more computationally expensive than $Z_1$, $Z_2$ is chosen as a control variable. This leads to a reduction in variance of approximately $26\%$ compared to the crude MCS. However, the variance reduction scales linearly with the number of samples, and since the reduction is not very significant, and we introduce considerable additional computational cost, the control variable MCS is not a very good choice in this case - we might aswell just double the sample size. The code snippet for the control variable MCS can be seen in \autoref{code_b}.
 
 \lstinputlisting[
     caption={Python code for control variable MCS},
@@ -143,12 +181,14 @@ Given the results of the pilot study, and the fact that $Z_2$ is not much more c
 ]{b.py}
 
 \section{Importance-Sampling (c)}
-Since we are interested in estimating a relatively rare event, we can use importance sampling to reduce the variance. We are interested in designing a new distribution under which the event $L > x$ is likely to occur. For numerical stability, it is desirable to choose a distribution that is not too far from the original distribution. If we inspect $L$, it is compromised of a linear and a quadratic term. We may consider if we want to shift the mean of $\Delta_S$ upwards or downwards. Since we have a quadratic term, that is always positive, shifting the mean in a negative direction, will be somewhat dampened by the linear term, as such we would require larger shifting in the negative direction to observe the same effect, therefore, a positive shift is chosen. \vspace{.5cm}
-The expexctation of the loss $L$ is given by
+Since we are interested in estimating a relatively rare event, importance sampling to reduce the variance is a good candidate for variance reduction. We are interested in designing a new distribution under which the event $L > x$ is likely to occur. For numerical stability, it is desirable to choose a distribution that is not too far from the original distribution. If we inspect $L$, it is compromised of a linear and a quadratic term. We may consider if we want to shift the mean of $\Delta S$ upwards or downwards. Since we have a quadratic term, that is always positive, shifting the mean in a negative direction, will be somewhat dampened by the linear term, as such we would require larger shifting in the negative direction to observe the same effect, therefore, a positive shift is chosen. \vspace{.5cm}
+The expectation of the loss $L$ is given by
 \begin{equation*}
     \mathbb{E}[L] = \mathbb{E}[\delta^T\Delta S + \Delta S^T\Gamma\Delta S] = \mathbb{E}[\delta^T\Delta S] + \mathbb{E}[\Delta S^T\Gamma\Delta S] = 0 + 1 = 1,
 \end{equation*}
-Now we would like to shift the mean of $\Delta S$ such that the expectation of $L$ is equal to the threshold $x = 10$, such that the rare event $L > x$, is no longer rare. We do this by setting the expectation of $L$ under the new distribution $\mathbb{Q}$ to be equal to $x = 10$:
+Now we would like to shift the mean of $\Delta S \sim \mathbb{N}(0, 1)$ such that the expectation of $L$ is equal to the threshold $x = 10$, such that the rare event $L > x$, is common.
+Since $\Delta S$ is standard normal, we can shift the mean by adding a constant $\mu$ to $\Delta S$, such that $\Delta S + \mu \sim \mathcal{N}(\mu, 1)$.
+It follows that we can find $\mu$ such that the expectation of $L$ under the new distribution $\mathbb{Q}$ to be equal to $x = 10$:
 \begin{equation*}
     \mathbb{E}_{\mathbb{Q}}[L] = \mathbb{E}[\delta^T(\Delta S + \mu) + (\Delta S + \mu)^T\Gamma(\Delta S + \mu)] = 10.
 \end{equation*}
@@ -156,7 +196,10 @@ as adding a mean $\mu$ to $\Delta S$, will shift its mean by $\mu$, so for $m = 
 \begin{equation*}
     \mathbb{E}_{\mathbb{Q}}[L] = 2\mu + \mathbb{E}(\Delta S^2) + \mu^2 = 2\mu + 1 + \mu^2 = 10 \implies \mu(\mu + 2) = 9.
 \end{equation*}
-The positive solution to this equation is $\sqrt(10) -1 \approx 2.16$, and in accordance with above reasoning, we see that a negative shift would require $\mu \approx -4.16$, which is considerably larger in magnitude. 
+The positive solution to this equation is $\sqrt(10) -1 \approx 2.16$, and in accordance with above reasoning, we see that a negative shift would require $\mu \approx -4.16$, which is considerably larger in magnitude. Taking $\mu = \sqrt(10) -1$, we get the likelihood ratio
+\begin{equation*}
+    \dfrac{d\mathbb{P}}{d\mathbb{Q}}(\Delta S) = \dfrac{\frac{1}{\sqrt{2\pi}}e^{-\frac{1}{2}\Delta S^2}}{\frac{1}{\sqrt{2\pi}}e^{-\frac{1}{2}(\Delta S - \mu)^2}} = e^{-\frac{1}{2}\Delta S^2 + \frac{1}{2}(\Delta S - \mu)^2} = e^{-\mu\Delta S + \frac{1}{2}\mu^2}.
+\end{equation*}
 
 \vspace{.5cm}
 Using this design choice, variance reduction on the order of $3000\%$ is achieved. As such, importance-sampling offers a significant improvement compared to crude MCS, far outweighing the additional computational cost of computing the likelihood ratios. The code snippet for the importance sampling MCS can be seen in \autoref{code_c}.
@@ -169,11 +212,11 @@ Using this design choice, variance reduction on the order of $3000\%$ is achieve
 
 \section{Comparison of the methods (d)}
 
-To compare the three methods, we examine the confidence intervals for 30 different simulations runs with distinct random seeds. The results are shown in \autoref{fig:comparison}.
+To compare the three methods, we examine the confidence intervals for 30 different simulations runs with distinct random seeds, for each of the three methods. The results are shown in \autoref{fig:comparison}. The figure shows that the confidence intervals for the crude MCS and control variable MCS differ only slightly, while the confidence intervals for the importance sampling MCS are much narrower. This is consistent with the reduction in variance we observed in the previous sections.
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{figures/ConfInts.pdf}
+    \includegraphics[width=0.7\textwidth]{figures/ConfInts.pdf}
     \caption{Comparison of confidence intervals for crude MCS, control variable MCS and importance sampling MCS. The confidence intervals are based on 30 simulations with $N = 10^4$ samples each. Dots represent the estimated probabilities.}
     \label{fig:comparison}
 \end{figure}
@@ -205,11 +248,11 @@ Since $\Delta S \sim \mathcal{N}(0, 1)$, we can express the exceedance probabili
 \end{equation}
 which is consistent with the results obtained from the Monte Carlo simulations.
 \subsection{Is this true for other distributions?}
-We imposed or used no special restrictions on the distribution of $\Delta S$, as such, this method could be used to compute the exceedance probability under any distribution, as long as the CDF of the distribution is available.
+There is no guarantee that we can express the exceedance probability in terms of the CDF of the standard normal distribution for other distributions. 
 \subsection{Generalization of crude and control- MCS to other distributions}
-As long as we can sample from the distribution of $\Delta S$, we can use crude MCS to estimate the exceedance probability without any modifications. \vspace{0.5cm}
+As long as we can sample from the distribution of $L = h(X)$, where $X$ is a random vector with a known distribution, we can use crude MCS to estimate the exceedance probability without any modifications. \vspace{0.5cm}
 
-For control variable MCS, we do have the requirement that the expectation of the control variable is known in closed form - however this is true in general, and changing the sampling distribution of $\Delta S$ does not change this fact. As such, the control variable MCS can be generalized to other distributions without any modifications other than that the control variable $Z = h(\Delta S)$ has to be chosen such that its expectation $\mathbb{E}[Z]$ is known in closed form.
+For control variable MCS, we do have the requirement that the expectation of the control variable is known in closed form. As such, the control variable MCS can be generalized to other distributions without any modifications other than that the control variable $Z = g(X)$ has to be chosen such that its expectation $\mathbb{E}[Z]$ is known in closed form.
 
 \section{Cholesky Decomposition (f)}
 We wish to find a matrix $\tilde{C}$ such that $\Delta_S = \tilde{C}Z$, where $Z \sim \mathcal{N}(0, I_2)$, it follows from definition 3.8 that we can find such a matrix $\tilde{C}$ by performing a Cholesky decomposition of the covariance matrix $\Sigma_S$. We define the upper triangular matrix     $\tilde{C}$ as
@@ -220,7 +263,7 @@ We wish to find a matrix $\tilde{C}$ such that $\Delta_S = \tilde{C}Z$, where $Z
     \end{bmatrix},
 \end{equation*}
 with unknowns $a, b, c \in \mathbb{R}$, and solve
-\begin{equation}
+\begin{equation*}
     \tilde{C}\tilde{C}^T = \begin{bmatrix}
         a & 0\\
         b & c
@@ -231,7 +274,7 @@ with unknowns $a, b, c \in \mathbb{R}$, and solve
         1 & \frac{1}{2}\\
         \frac{1}{2} & 1
     \end{bmatrix}.
-\end{equation}
+\end{equation*}
 This produces the following system of equations
 \begin{align*}
     a^2  &= 1\\
@@ -248,7 +291,7 @@ $a^2 = 1 \implies a = 1$, and thus $b = \frac{1}{2}$. We can than solve $\frac{1
 \subsection{Eigen decomposition of $\tilde{C}^T\tilde{C}$}
 
 First we compute $\tilde{C}^T\tilde{C}$:
-\begin{equation}
+\begin{equation*}
     \tilde{C}^T\tilde{C} = \begin{bmatrix}
         1 & 0\\
         \frac{1}{2} & \sqrt{\frac{3}{4}}
@@ -259,7 +302,7 @@ First we compute $\tilde{C}^T\tilde{C}$:
         \frac{5}{4} & \frac{1}{2}\sqrt{\frac{3}{4}}\\
         \frac{1}{2}\sqrt{\frac{3}{4}} & \frac{3}{4}
     \end{bmatrix}.
-\end{equation}
+\end{equation*}
 We note that $\tilde{C}^T\tilde{C}$ is a real symmetric matrix, it follows from the spectral theorem that there exists and orthogonal matrix $U$ and a diagonal matrix $\Lambda$ such that
 \begin{equation}
     \tilde{C}^T\tilde{C} = U\Lambda U^T.
@@ -267,9 +310,9 @@ We note that $\tilde{C}^T\tilde{C}$ is a real symmetric matrix, it follows from 
 \end{equation}
 where the columns of $U$ are the eigenvectors of $\tilde{C}^T\tilde{C}$ and the diagonal entries of $\Lambda$ are the corresponding eigenvalues. Thus, we need to solve the eigenvalue problem
 
-\begin{equation}
-    \text{det}(\tilde{C}^T\tilde{C} - \lambda I) = 0,
-\end{equation}
+\begin{equation*}
+    \text{det}(\tilde{C}^T\tilde{C} - \lambda I_2) = 0,
+\end{equation*}
 
 which yields the characteristic polynomial
 
@@ -279,7 +322,7 @@ which yields the characteristic polynomial
 
 This yeilds the eigenvalues $\lambda_1 = \dfrac{1}{2}, \; \lambda_2 = \dfrac{3}{2}$, now we find the eigenvectors by solving the system of equations
 \begin{equation*}
-    (\tilde{C}^T\tilde{C} - \lambda I)u = 0,
+    (\tilde{C}^T\tilde{C} - \lambda I_2)u = 0,
 \end{equation*}
 which yields the eigenvectors
 \begin{equation*}
@@ -294,28 +337,24 @@ The computation is carried out in the code snippet seen in \autoref{code_eigen_d
     caption={Python code for eigen decomposition of $\tilde{C}^T\tilde{C}$},
     label={code_eigen_decomposition}
 ]
-    # Python code for eigen decomposition of C^T C
-    import numpy as np
-
     # Define the matrix
-    C_T_C = np.array([[5/4, 0.5*np.sqrt(3/4)],
-                      [1/2*np.sqrt(3/4), 3/4]])
+    C_T_C = np.array([[0.75, 0.5 * np.sqrt(0.75)],
+                      [0.5 * np.sqrt(0.75), 1.25]])
 
     # Compute the eigenvalues and eigenvectors
-    eigenvalues, eigenvectors = np.linalg.eig(C_T_C)
+    eigenvalues, U = np.linalg.eig(C_T_C)
+    eigenvalues = np.real(eigenvalues)
 
-    print("Eigenvalues:", eigenvalues)
-    print("Eigenvectors:", eigenvectors)
 \end{lstlisting}
 \subsection{New expression of L}
 Using our Cholesky decomposition, we have $\Delta S = \tilde{C}Z$, where $Z \sim \mathcal{N}(0, I_2)$. It then follows that we can rewrite $L$ as
-\begin{equation}
+\begin{equation*}
     L = \delta^T\tilde{C}Z + Z^T\tilde{C}^T\Gamma\tilde{C}Z.
-\end{equation}
+\end{equation*}
 Now since $\Gamma = I_2$, this simplifies to
-\begin{equation}
+\begin{equation*}
     L = \delta^T\tilde{C}Z + Z^T\tilde{C}^T\tilde{C}Z.
-\end{equation}
+\end{equation*}
 We define $Z = [Z_1, Z_2]^T$, and use the eigen decomposition \eqref{eq:eigendecomp} to rewrite $L$ as
 \begin{equation}
     L = \delta^T\tilde{C}Z + Z^TU\Lambda U^TZ = \delta^T\tilde{C}Z + (U^TZ)^T\Lambda U^TZ .
@@ -328,15 +367,15 @@ Not let $C = \tilde{C}U \implies C^T = U^T\tilde{C}^T$, and $b = C^T\delta = U^T
 \end{equation}
 Now it is useful to note that the linear transformation $U^TZ \sim \mathcal{N}(0, U^TU)$, orthogonality then gives that
 $U^TZ \sim \mathcal{N}(0, I_2) = Z$. As such \eqref{eq:bterm} simplifies to
-\begin{equation}
+\begin{equation*}
     \delta^T\tilde{C}Z = b^TU^TZ = b^TZ.
-\end{equation}
+\end{equation*}
 
 
 Using this property, again we can rewrite \eqref{eq:Lnew} as
-\begin{equation}
+\begin{equation*}
     L = b^TZ + (U^TZ)^T \Lambda U^TZ = b^TZ + Z^T\Lambda Z,
-\end{equation}
+\end{equation*}
 using \eqref{eq:bterm}. The first term is a inner product of two vectors, and the since $\Lambda$ is diagonal, the second term is a weighted sum of squares of the entries of $Z$ - as such we arrive at the desired expression of $L$:
 \begin{equation}
     L = b_1Z_1 + b_2Z_2 + \lambda_1Z_1^2 + \lambda_2Z_2^2.
@@ -347,7 +386,7 @@ using \eqref{eq:bterm}. The first term is a inner product of two vectors, and th
 (a) and (b) are repeated with the new parameters, $m=2$, $\delta = [2, 2]^T$, $\Gamma = I_2$, $\Sigma_S = \begin{bmatrix}
 1 & \frac{1}{2}\\
 \frac{1}{2} & 1
-\end{bmatrix}$ and $x = 15$. Code wise the implementation is identical, however the $m$ variable in the \emph{parameters.py} file is changed to $m = 2$, this updates $\delta$, $\Gamma$ and $\Sigma_S$ accordingly.
+\end{bmatrix}$ and $x = 15$. Code wise the implementation is identical, however the $m$ variable in the \emph{parameters.py} file is changed to $m = 2$, this updates $\delta$, $\Gamma$ and $\Sigma_S$ accordingly. Thus, the code snippets for (a) and (b) are identical to the previous ones, and can be seen in \autoref{code_a} and \autoref{code_b}, only where $m$ is updated to $2$ in \autoref{code_params}
 
 \subsection{Repetition of (a)}
 For $N = 10^5$, we obtain an estimate of $\hat{\ell} \approx 0.0153$ with a variance of $s^2 \approx 1.5134\cdot 10^{-7}$.
@@ -380,14 +419,14 @@ We see that the new importance sampling distribution from \eqref{eq:tilt} is a j
 \begin{equation}
    \dfrac{d\mathbb{P}}{d \mathbb{Q}}(z) =  \dfrac{f(z)}{g(z)} = \dfrac{\prod_{i\leq 2} f(z_i)}{\prod_{i\leq 2} g(z_i)} = \prod_{i\leq 2} e^{-\theta_i z_i + \frac{1}{2}\theta_i^2},
 \end{equation}
-and we note that we indeed arrive at a new multivariate normal distribution with identity covariance matrix, but with a shifted mean $\theta$. To test different pairs of $\theta_1, \theta_2$, i generate a 2D grid of values, and compute the variance and estimate of the importance sampling estimator for the respective pairs
+and we note that we indeed arrive at a new multivariate normal distribution with identity covariance matrix, but with a shifted mean $\theta$. To test different pairs of $\theta_1, \theta_2$, i generate a 2D grid of values, and compute the variance and estimate of the importance sampling estimator for the respective pairs. The figures in \autoref{fig:variance_estimate} are generated from the code seen in \autoref{plotting_code}.
 
 % Side by side figures:
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.45\textwidth]{figures/2Dest.pdf}
     \includegraphics[width=0.45\textwidth]{figures/2Dvar.pdf}
-    \caption{Estimate and variance of the importance sampling estimator for different pairs of $\theta_1, \theta_2$., $N = 10^4$ samples.}
+    \caption{Estimate and variance of the importance sampling estimator for different pairs of $\theta_1, \theta_2$., $N = 10^5$ samples.}
     \label{fig:variance_estimate}
 \end{figure}
 We see that there is a comparably low varaince region, with estimate values similar to the crude MCS estimate in the region $\theta \in [-0.4,0.4] \times [-1,-0.4]$. The code for the exponential tilting is seen in \autoref{code_g}.
@@ -396,78 +435,78 @@ We see that there is a comparably low varaince region, with estimate values simi
     label={code_g}
 ]{g.py}
 
-\section{Cumlant generating function of L}
+\section{Cumlant generating function of L (h)}
 We wish to show that the cumulant generating function of $L$ is given by
-\begin{equation}
+\begin{equation*}
     \psi_L(\theta) = \log\mathbb{E}[e^{\theta L}] = \dfrac{1}{2}\sum_{i = 1}^2\left(\dfrac{\theta^2\beta_i^2}{1-2\theta\lambda_i} - \log(1 - 2\theta\lambda_i)\right).
-\end{equation}
+\end{equation*}
 We recall that $b = C^T\delta$, and $\lambda_i$ are the eigenvalues of $\tilde{C}^T\tilde{C}$. To show the relation above, we introduce the following constant $\gamma_i = \dfrac{b_i}{2\lambda_i}$. Without proof, we are given that
 \begin{equation}
     \log\mathbb{E}[e^{\theta(Z_i + c)^2}] = (1-2\theta)^{-1/2}e^{\frac{\theta c^2}{1-2\theta}}, \label{eq:noproof}
 \end{equation}
 which holds for $c \in \mathbb{R}$ and $\theta < \frac{1}{2}$. Now, the idea is to rewrite
 $L$ as a sum of two terms if the form $(Z_i + c)^2$, and then use the relation above to compute the cumulant generating function of $L$. Let
-\begin{equation}
+\begin{equation*}
         M_i = (Z_i + \frac{b_i}{2\lambda_i})^2 = Z_i^2 +\dfrac{b_i^2}{4\lambda_i^2} + \dfrac{b_i}{\lambda_i}Z_i.
-\end{equation}
+\end{equation*}
 If we then define $L_i$ as $M_i$ subtracted by $\gamma_i$, then
-\begin{equation}
+\begin{equation*}
     L_i = M_i - \gamma_i^2,
-\end{equation}
+\end{equation*}
 where one then finds that that $L = \sum_{i=1}^2 \lambda_i L_i$ - Note that $L_1 \perp L_2$. We can then compute the cumulant generating function of $L$ as. Now let $\theta_i = \theta\lambda_i$, then 
-\begin{equation}
+\begin{equation*}
     \psi_L(\theta) = \log\mathbb{E}[e^{\theta L}] = \log\mathbb{E}[e^{\sum_{i=1}^2 \theta_i L_i}] = \log\mathbb{E}[e^{\theta_1 L_1}e^{\theta_2 L_2}] 
-\end{equation}
+\end{equation*}
 since $L_1 \perp L_2$, we can write
-\begin{equation}
+\begin{equation*}
     \psi_L(\theta) = \log\mathbb{E}[e^{\theta_1 L_1}]\mathbb{E}[e^{\theta_2 L_2}] = \log\mathbb{E}[e^{\theta_1 L_1}] + \log\mathbb{E}[e^{\theta_2 L_2}] =
-\end{equation}
+\end{equation*}
 $$\log\mathbb{E}[e^{\theta_1 M_1}] + \log\mathbb{E}[e^{\theta_2M_2}] - \log\mathbb{E}[e^{\theta_1\gamma_1}] - \log\mathbb{E}[e^{\theta_2\gamma_2}] = $$
 $$\log\mathbb{E}[e^{\theta_1 M_1}] + \log\mathbb{E}[e^{\theta_2M_2}] - \theta_1\gamma_1^2 - \theta_2\gamma_2^2.$$
 Now we assume $\theta < \frac{1}{2}$ and use \eqref{eq:noproof} to compute the terms containing $M_i$, and we find that above equation simplifies to
-\begin{equation}
+\begin{equation*}
     \psi_L(\theta) = \sum_{i=1}^2 \log(\mathbb{E}[e^{\theta_i M_i}]) - \theta_i\gamma_i = \sum_{i=1}^2 \left(-\frac{1}{2}\log(1-2\theta_i) + \frac{\theta_i \gamma_i^2}{(1-2\theta_i)} - \theta_i\gamma_i^2\right) =
-\end{equation}
+\end{equation*}
 $$
     \sum_{i=1}^2 \left(-\frac{1}{2}\log(1-2\theta_i) + \frac{\theta_i \gamma_i^2- \theta_i\gamma_i^2(1-2\theta_i)}{(1-2\theta_i)}\right) = \sum_{i=1}^2 \left(-\frac{1}{2}\log(1-2\theta_i) + \frac{2\theta_i^2\gamma_i^2}{(1-2\theta_i)}\right),
 $$
 finally, we can substitute back $\theta_i = \theta\lambda_i$ and $\gamma_i = \frac{b_i}{2\lambda_i}$ to obtain the desired result
-\begin{equation}
+\begin{equation*}
     \sum_{i=1}^2 \left(-\frac{1}{2}\log(1-2\theta_i) + \frac{2\theta^2\lambda_i^2\dfrac{b_i^2}{4\lambda_i^2}}{(1-2\theta\lambda_i)}\right) = \dfrac{1}{2}\sum_{i = 1}^2\left(\dfrac{\theta^2b_i^2}{(1-2\theta\lambda_i)} - \log(1 - 2\theta\lambda_i)\right) \square
-\end{equation}
+\end{equation*}
 
 
-\section{Choosing $\theta$ based on the cumulant generating function}
+\section{Choosing $\theta$ based on the cumulant generating function (i)}
 One heuristic for choosing $\theta$, is to choose it in such a manner that the event $L > x$ is no longer rare. From section 6 in the SupplNotes, we know that the mean under the tilted distibution can be found as
 \begin{equation*}
     \psi_L'(\theta) = \mathbb{E}_\theta[L],
 \end{equation*}
 so we can solve for $\theta$ such that $\psi_L'(\theta) = x = 15$, such that this event is the expected value under the new distribution. We find
-\begin{equation}
+\begin{equation*}
     \psi_L'(\theta) = \dfrac{1}{2}\sum_{i = 1}^2\left(\dfrac{2\theta b_i^2(1-2\theta\lambda_i) + 2\theta^2b_i^2\lambda_i}{(1-2\theta\lambda_i)^2} + \dfrac{2\lambda_i}{(1 - 2\theta\lambda_i)}\right)  =\sum_{i = 1}^2 \dfrac{\theta b_i^2(1-\theta\lambda_i)}{(1-2\theta\lambda_i)^2} + \dfrac{\lambda_i}{(1 - 2\theta\lambda_i)}.
-\end{equation}
+\end{equation*}
 We can now solve for $\theta$ such that $\psi_L'(\theta) = 15$, under the constraint that $max(\lambda_i)\theta < \frac{1}{2} \implies \theta < \dfrac{1}{3}$, since $max(\lambda_i) = \frac{3}{2}$.
 \subsection{Distribution under the shifted measure}
 Before we set out to solve for $\theta$, we can also compute the distribution of $L$ under the new measure. We have that
-\begin{equation}
+\begin{equation*}
     \mathbb{P}_\theta(B) = \int_B f(z)e^{\theta L - \psi_L(\theta)} dz,
-\end{equation}
+\end{equation*}
 since $\psi_L(\theta)$ is independent of $z$, we can write
-\begin{equation}
+\begin{equation*}
     \mathbb{P}_\theta(B) = \int_B f(z)e^{\theta L} dz e^{-\psi_L(\theta)} = e^{-\psi_L(\theta)}\int_B f(z)e^{\theta L} dz,
-    \end{equation}
+    \end{equation*}
 where $e^{-\psi_L(\theta)}$ is a normalization constant. If we look at the integrand, in the latter integral, and recall that $L(z) = b^Tz + z^T\Lambda z$, we can write
-\begin{equation}
+\begin{equation*}
     f(z)e^{\theta L} = \dfrac{1}{2\pi}e^{-\frac{1}{2}z^Tz}e^{\theta(b^Tz + z^T\Lambda z)} = \dfrac{1}{2\pi}e^{-\frac{1}{2}z^Tz + \theta b^Tz + \theta z^T\Lambda z} = e^{-\frac{1}{2}z^T(I_2 - 2\theta\Lambda)z + \theta b^Tz}, 
-\end{equation}
+\end{equation*}
 We wish to complete the square, let $A = I_2 - 2\theta\Lambda$, we can write the exponent as
-\begin{equation}
+\begin{equation*}
     -\frac{1}{2}z^TAz + \theta b^Tz = -\frac{1}{2}(z - A^{{-1}}\theta b)^TA(z - A^{-1}\theta b) + \frac{1}{2}\theta b^TA^{-1}\theta b.
-\end{equation}
+\end{equation*}
 thus we get the normal kernel 
-\begin{equation}
+\begin{equation*}
     e^{-\frac{1}{2}(z - A^{-1}\theta b)^TA(z - A^{-1}\theta b)}
-    \end{equation}
+    \end{equation*}
 and thus the distribution of $L$ under the new measure is given by
 \begin{equation*}
     e^{\psi_L(\theta)}f(z)e^{\theta L} \sim N(\theta A^{-1}b, A^{-1}).
@@ -481,11 +520,48 @@ We can now use above results to implement an algorithm for importance sampling i
     \item Sample from the new distribution and compute the likelihood ratio.
     \item Compute the estimate of the exceedance probability using the samples and likelihood ratios.
 \end{enumerate}
-recall that the likelihood ratio is given by the inverse of the exponential tilting, which is given by
-\begin{equation}
+Note that in step 1, we must ensure that the solution for $\theta$ that we find using a root-finding method, obeys the constraint that $max(\lambda_i)\theta < \frac{1}{2}$.
+For step 3, we recall that the likelihood ratio is given by the inverse of the exponential tilting, which is given by
+\begin{equation*}
     \dfrac{d\mathbb{P}}{d \mathbb{Q}}(z) =  e^{-\theta L + \psi_L(\theta)}.
-\end{equation}
+\end{equation*}
+this can be computed once we have determined $\theta$ and drawn samples from the importance sampling distribution. The code for the algorithm is seen in \autoref{code_i}. The numerical solver finds $\theta^* = 0.20315$, which is within the constraint $\theta < \frac{1}{3}$. 
 
+For $N=10^5$, we obtain an estimate of $\hat{\ell} \approx 0.0143$ with a variance of $s^2 \approx 1.015\cdot 10^{-7}$, which is consistent with the results obtained from the crude MCS. If we compare the variance of the crude MCS we get
+\begin{equation*}
+    \dfrac{1.015\cdot 10^{-7}}{1.5134\cdot 10^{-7}} \approx 0.67,
+\end{equation*}
+which is a variance reduction of $\approx 67\%$, this is much lower compared to the variance reduction when $m = 1$.
+\lstinputlisting[
+    caption={Python code for importance sampling using exponential tilting},
+    label={code_i}
+]{i.py}
+
+
+\section{Stratified sampling (j)}
+The issue we are trying to address is that the event $L > x$ is rare, and as such, we need large samples in order to obtain a good estimate, since we may face a scenario where no samples exceed the threshold $x$. To adress this we could also use stratified sampling. Instead of sampling from the orignal distribution of L, we can sample from conditional distributions of 
+$L$ given that it falls within certain strata. The drawback of the method is that we need to know the conditional distributions of $L$ given $Q = i$, and the probabilities $\mathbb{P}(Q = i)$. \vspace{.5cm}
+
+
+
+Suppose that we can tackle these obstacles: One choice of a stratification variable $Q$ is to define it as
+\begin{equation*}
+    Q = \begin{cases}
+        1, & \text{if } Z_1 < a\\
+        2, & \text{if } a \leq Z_1 < b\\
+        3, & \text{if } Z_1 \geq b
+    \end{cases}
+\end{equation*}
+such that for suitable choices of $a$ and $b$, we have that $\mathbb{P}(L > x | Q = i)$ is no longer rare for atleast one value of $i$. For this choice, we at the very least know the probabilities $\mathbb{P}(Q = i)$. We can then use the law of total probability to write
+\begin{equation*}
+    \mathbb{P}(L > x) = \sum_{i=1}^3 \mathbb{P}(L > x | Q = i)\mathbb{P}(Q = i).
+\end{equation*}
+which we estimate by the indicator function
+\begin{equation*}
+    \hat{\ell}^{(s)} = \sum_{i=1}^3 \dfrac{\mathbb{P}(Q = i)}{N_i}\sum_{j=1}^{N_i}\mathbb{I}(L_{ij} > x)
+\end{equation*}
+Where $L_{ij}$ is the $j$-th sample from the conditional distribution of $L$ given that $Q = i$, and $N_i$ is the number of samples drawn from aforementioned conditional distribution. 
+ AS such, the estimate is obtained by averaging the indicator functions over the samples weighted by the probabilities of belonging to each stratum. How many samples are allocated to each strata is then a matter of either using approximate optimal allocation, or using proportional allocation.
 
 
 \section{Appendix}
@@ -493,6 +569,11 @@ recall that the likelihood ratio is given by the inverse of the exponential tilt
     caption={parameters.py - Parameters for the various code snippets},
     label={code_params}
 ]{parameters.py}
+
+\lstinputlisting[
+    caption={Plotting code},
+    label={plotting_code}
+]{plots.py}
 
 
 

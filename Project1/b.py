@@ -86,7 +86,7 @@ def control_monte_carlo(N, sampling_dist):
         E_Z = 1 # Quadratic term i Chi_squared(1) -> E[Z] = 1
     if m == 2:
         # (f) gives weighting of eigenvalues of two chi_squared(1)
-        E_Z = eigenvalues[0]*1 + eigenvalues[1]*1
+        E_Z = eigenvalues[0] * 1 + eigenvalues[1] * 1
 
     # Mean of indicator converges a.s to P(L > x)
     exeedence = indicator(x, loss)
