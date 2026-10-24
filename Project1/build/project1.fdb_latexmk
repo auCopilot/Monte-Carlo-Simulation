@@ -1,12 +1,12 @@
 # Fdb version 4
-["pdflatex"] 1792420284.21576 "c:/Users/thoma/Documents/AarhusUniversitet/Monte-Carlo-Simulation/Project1/project1.tex" "project1.pdf" "project1" 1792420286.97041 0
+["pdflatex"] 1792737366.67427 "c:/Users/thoma/Documents/AarhusUniversitet/Monte-Carlo-Simulation/Project1/project1.tex" "project1.pdf" "project1" 1792737368.45939 0
   "a.py" 1792416577 1139 f35da068e1c4eeba191aaeb6fde91197 ""
   "b.py" 1792417532 3927 7b43c0e3988fb65ceb312a2492b2ed84 ""
-  "build/project1.aux" 1792420286 6894 d3bb038f1ee962eb8cdf90025ba90f7d "pdflatex"
-  "build/project1.out" 1792420286 4450 540e41aef6ea995cda812f8f6c0b2bf1 "pdflatex"
-  "build/project1.toc" 1792420286 1947 ac323b9ee2b8a8f999192cf59eb42747 "pdflatex"
+  "build/project1.aux" 1792737368 6894 54a521ecabd92d165f782f5024fa17d0 "pdflatex"
+  "build/project1.out" 1792737368 4450 540e41aef6ea995cda812f8f6c0b2bf1 "pdflatex"
+  "build/project1.toc" 1792737368 1947 e30c248b6e5f8d86021a948ff9019d48 "pdflatex"
   "c.py" 1792419546 3199 00035a7348124c943fceb33698e191a2 ""
-  "c:/Users/thoma/Documents/AarhusUniversitet/Monte-Carlo-Simulation/Project1/project1.tex" 1792420149 35405 f3659881b3addf4c6361e77ad0e6b8d4 ""
+  "c:/Users/thoma/Documents/AarhusUniversitet/Monte-Carlo-Simulation/Project1/project1.tex" 1792737343 35828 02e2258e4c9fa7087bb198c0fd1ac7ac ""
   "c:/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1747830379 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "c:/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1747831289 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "c:/texlive/2025/texmf-dist/fonts/tfm/jknappen/ec/tcrm1000.tfm" 1747830946 1536 e07581a4bb3136ece9eeb4c3ffab8233 ""
@@ -171,7 +171,7 @@
   "i.py" 1792420282 2507 3c43ccf1517579f98f301dc5ef821d9c ""
   "parameters.py" 1792419194 2472 bddf5d7f9c9bbaef8cfdeef02413ff0a ""
   "plots.py" 1792319098 3090 487af3549173979b83de3ec0545f40f9 ""
-  "project1.tex" 1792420149 35405 f3659881b3addf4c6361e77ad0e6b8d4 ""
+  "project1.tex" 1792737343 35828 02e2258e4c9fa7087bb198c0fd1ac7ac ""
   (generated)
   "build/project1.aux"
   "build/project1.log"

@@ -107,7 +107,7 @@ Example prompts could be:
 In this project, we will investigate the use of Monte Carlo simulation (MCS)  to estimate the exceedance probability $\mathbb{P}(L > x)$ of a loss $$ L = \delta^T\Delta S + \Delta S^T\Gamma\Delta S,$$
 where, $delta \in \mathbb{R}^m$, $\Gamma \in \mathbb{R}^{m\times m}$ and $\Delta S \sim \mathcal{N}(0, \Sigma_S)$ is a (multivariate) normal random variable. \vspace{.5cm}
 
-In the parts $(a)$, $(b)$ and $(c)$, we will focus on the one-dimensional case, $m= 1$. These three parts will compare crude MCS with MCS where we introduce control variates and importance samplingm respectively. In part $(d)$, the differences of these methods are visuallized by comparison of the confidence intervals of the estimates that are obtained from each method.
+In the parts $(a)$, $(b)$ and $(c)$, we will focus on the one-dimensional case, $m= 1$. These three parts will compare crude MCS with MCS where we introduce control variates and importance sampling respectively. In part $(d)$, the differences of these methods are visuallized by comparison of the confidence intervals of the estimates that are obtained from each method.
 In part (e) we derive a closed form expression for the exceedance probability $\mathbb{P}(L > x)$ for the given parameters, and discuss how this can be generalized to other distributions. 
 
  \vspace{.5cm}
@@ -173,7 +173,7 @@ To test which control variable is the best, a small pilot study is conducted to 
 \begin{equation*}
     \text{Corr}(Y, Z_1) \approx 0.25, \quad \text{Corr}(Y, Z_2) \approx 0.37.
 \end{equation*}
-Given the results of the pilot study, and the fact that $Z_2$ is not much more computationally expensive than $Z_1$, $Z_2$ is chosen as a control variable. This leads to a reduction in variance of approximately $26\%$ compared to the crude MCS. However, the variance reduction scales linearly with the number of samples, and since the reduction is not very significant, and we introduce considerable additional computational cost, the control variable MCS is not a very good choice in this case - we might aswell just double the sample size. The code snippet for the control variable MCS can be seen in \autoref{code_b}.
+Given the results of the pilot study, and the fact that $Z_2$ is not much more computationally expensive than $Z_1$, $Z_2$ is chosen as a control variable. This leads to variance reduction facotor of $1.26$ compared to the crude MCS. However, the variance reduction scales linearly with the number of samples, and since the reduction is not very significant, and we introduce considerable additional computational cost, the control variable MCS is not a very good choice in this case - we might aswell just double the sample size. The code snippet for the control variable MCS can be seen in \autoref{code_b}.
 
 \lstinputlisting[
     caption={Python code for control variable MCS},
@@ -202,7 +202,7 @@ The positive solution to this equation is $\sqrt(10) -1 \approx 2.16$, and in ac
 \end{equation*}
 
 \vspace{.5cm}
-Using this design choice, variance reduction on the order of $3000\%$ is achieved. As such, importance-sampling offers a significant improvement compared to crude MCS, far outweighing the additional computational cost of computing the likelihood ratios. The code snippet for the importance sampling MCS can be seen in \autoref{code_c}.
+Using this design choice, a variance reduction factor of about $30$ is achieved. As such, importance-sampling offers a significant improvement compared to crude MCS, far outweighing the additional computational cost of computing the likelihood ratios. The code snippet for the importance sampling MCS can be seen in \autoref{code_c}.
 
 \lstinputlisting[
     caption={Python code for importance sampling MCS},
@@ -248,7 +248,10 @@ Since $\Delta S \sim \mathcal{N}(0, 1)$, we can express the exceedance probabili
 \end{equation}
 which is consistent with the results obtained from the Monte Carlo simulations.
 \subsection{Is this true for other distributions?}
-There is no guarantee that we can express the exceedance probability in terms of the CDF of the standard normal distribution for other distributions. 
+There is no guarantee that we can express the exceedance probability in terms of the CDF of the standard normal distribution for other distributions. However, we did not use any specific properties of the standard normal distribution, so if $\Delta S$ had a different continous distribtuion, we could still express the exceedance probability in terms of the CDF of that distribution, as long as we can find the roots of the polynomial. That is, if under the new distribution, $\Delta S$ has a CDF $F(x)$, we could express the exceedance probability as
+\begin{equation*}
+    \mathbb{P}(L > x) = F(r_{-}) + 1 - F(r_{+}),
+\end{equation*}
 \subsection{Generalization of crude and control- MCS to other distributions}
 As long as we can sample from the distribution of $L = h(X)$, where $X$ is a random vector with a known distribution, we can use crude MCS to estimate the exceedance probability without any modifications. \vspace{0.5cm}
 
@@ -396,7 +399,7 @@ For $N = 10^5$, we obtain an estimate of $\hat{\ell} \approx 0.0153$ with a vari
 \begin{equation*}
     \mathbb{E}[Z_{control}] = \mathbb{E}[\lambda_1Z_1^2 + \lambda_2Z_2^2] = \lambda_1\mathbb{E}[Z_1^2] + \lambda_2\mathbb{E}[Z_2^2] = \lambda_1\mathbb{E}[\chi^2_1] + \lambda_2\mathbb{E}[\chi^2_1] = \lambda_1 + \lambda_2 = 2,
 \end{equation*}
-where $Z_1, Z_2 \sim \mathcal{N}(0, 1)$ and $\lambda_1 = \frac{1}{2}, \lambda_2 = \frac{3}{2}$ are the eigenvalues of $\tilde{C}^T\tilde{C}$, from (f). This is handled automatically if $m$ is set to $2$ in the \emph{parameters.py} file. This time we see a variance reduction of $\approx 23.0\%$.
+where $Z_1, Z_2 \sim \mathcal{N}(0, 1)$ and $\lambda_1 = \frac{1}{2}, \lambda_2 = \frac{3}{2}$ are the eigenvalues of $\tilde{C}^T\tilde{C}$, from (f). This is handled automatically if $m$ is set to $2$ in the \emph{parameters.py} file. This time we see a variance reduction factor of $ 1.23$, which again is not very significant, and the additional computational cost of computing the control variable is not justified.
 
 
 \section{Exponential tilting (g)}
@@ -511,7 +514,7 @@ and thus the distribution of $L$ under the new measure is given by
 \begin{equation*}
     e^{\psi_L(\theta)}f(z)e^{\theta L} \sim N(\theta A^{-1}b, A^{-1}).
 \end{equation*}
-It is useful to note that $A$ is a diagonal matrix, which allows us to sample from independent normal distributions, and making the likelihood ratio readily computable.
+
 \subsection{Algorithm}
 We can now use above results to implement an algorithm for importance sampling is as follows:
 \begin{enumerate}
@@ -527,11 +530,11 @@ For step 3, we recall that the likelihood ratio is given by the inverse of the e
 \end{equation*}
 this can be computed once we have determined $\theta$ and drawn samples from the importance sampling distribution. The code for the algorithm is seen in \autoref{code_i}. The numerical solver finds $\theta^* = 0.20315$, which is within the constraint $\theta < \frac{1}{3}$. 
 
-For $N=10^5$, we obtain an estimate of $\hat{\ell} \approx 0.0143$ with a variance of $s^2 \approx 1.015\cdot 10^{-7}$, which is consistent with the results obtained from the crude MCS. If we compare the variance of the crude MCS we get
+For $N=10^5$, we obtain an estimate of $\hat{\ell} \approx 0.0143$ with a variance of $s^2 \approx 1.015\cdot 10^{-7}$, which is consistent with the results obtained from the crude MCS. If we compare the variance of the crude MCS we get a varince reduction factor of
 \begin{equation*}
-    \dfrac{1.015\cdot 10^{-7}}{1.5134\cdot 10^{-7}} \approx 0.67,
+    \dfrac{1.5134\cdot 10^{-7}}{1.015\cdot 10^{-7}} \approx 1.5,
 \end{equation*}
-which is a variance reduction of $\approx 67\%$, this is much lower compared to the variance reduction when $m = 1$.
+we note that this is much lower compared to the variance reduction when $m = 1$.
 \lstinputlisting[
     caption={Python code for importance sampling using exponential tilting},
     label={code_i}
