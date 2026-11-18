@@ -22,6 +22,8 @@
 \usepackage{svg}
 \usepackage{hyperref}
 \usepackage{bbm}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
 
 % -------------------------------------------------
 % Colors
@@ -133,8 +135,11 @@
     \thispagestyle{empty}
 
 \end{titlepage}
+\section{Week}
 
-\section{Sampling Uniformly from Regions}
+In this week we work with Acceptance-Rejection methods. The general idea is: We wish to sample from a distribution $f(x)$, but we can only sample from a distribution $g(x)$. Now if we can find a constant $C$ such that $f(x) \leq C g(x)$ for all $x$, then we can sample from $g(x)$ and accept the sample with probability $f(Y^*) = \frac{f(x)}{C g(x)}$, that is, draw a sample $Y$ from $g(x)$, and a uniform random variable $U \sim Unif(0,1)$, and accept the sample if $U \leq f(Y^*) = \frac{f(Y)}{C g(Y)}$. This is the basis for the acceptance-rejection method.
+
+\subsection{Sampling Uniformly from Regions}
 This section generalizes the idea of sampling uniformly from a region in $\mathbb{R}^n$. The goal is to sample points uniformly from a given region $B \subseteq \mathbb{R}^n$. Suppose that we sample $X = (X_1, X_2, \ldots, X_n)$ uniformly from a region $B$. Then the joint density of $X$ is given by
 \begin{equation}
     f_{X_1X_2\ldots X_n}(x_1, x_2, \ldots, x_n) = \dfrac{1}{|B|},
@@ -145,7 +150,7 @@ where $|B|$ is the volume (or area, in the case of $\mathbb{R}^2$) of the region
 \end{equation}
 This means that the marginal density of $X_1$ is proportional to the volume of the region $B_{x_1}$, which is the slice of the region $B$ at a fixed value of $x_1$. This can be generalized to any component $X_i$.
 
-\subsection{Task 12 Acceptance-Rejection}
+\subsubsection{Task 12 Acceptance-Rejection}
 We illustrate using Task 12 as an example. 
 We are given the distribution function $f(x) = C  x^{-3/2} \dfrac{1}{\sqrt{2\pi}} e^{-(x-1)^2/2x}$, and we wish to find a dominating distribution $g(x)$ such that $f(x) \leq M g(x)$ for some constant $M$. If we expand the expression for $f(x)$ and disregard the constant, as this can always be absorbed into the constant $M$, we have that
 \begin{equation}
@@ -155,24 +160,23 @@ The behaviour near $x= 0$ can be assessed graphically, however the tail behaviou
 $. Thus if we choose the exponential distribution $g(x) = \lambda e^{-\lambda x}$, we have that $f(x) \leq M g(x)$ for some constant $M$ and $\lambda = 1/2$. Graphically, we can see that $M \approx 2.7$.\vspace{1em}
 
 
-
-Let $(X,Y)$ be uniformly distributed on the region $B = \{(x,y) \in \mathbb{R}^2 : 0 \leq y \leq f(x)\}$. Where $f(x)$ is a distribution function. We then wish to find the marginal density of $X$. We have that
+Let $(X,Y)$ be uniformly distributed on the region $B = \{(x,y) \in \mathbb{R}^2 : 0 \leq y \leq f(x)\}$. Where $f(x)$ is a PDF. We then wish to find the marginal density of $X$. We have that
 \begin{equation}
     |B| = \int \int_B \mathbbm{1}(0 \leq y \leq f(x)) \, dy \, dx = \int_{-\infty}^{\infty} \int_0^{f(x)} \, dy \, dx = \int_{-\infty}^{\infty} f(x) \, dx = 1,
 \end{equation}
-Now for a fixed $x$, we have that
+Now for a fixed $x$, we have that, since $(X,Y)$ is uniformly distributed over $B$ such that $f_{XY}= \frac{1}{|B|} = 1, that$
 \begin{equation}
     f_{X}(x) = \dfrac{\int_0^{f(x)} f_{XY}(x,y)\, dy}{|B|} = \dfrac{\int_0^{f(x)} 1\, dy}{1} = f(x).
 \end{equation}
-This shows us that if we sample uniformly from the region below the curve of a distribution function $f(x)$, then the marginal density of $X$ is given by $f(x)$. This is the basis for the acceptance-rejection method.
+This shows us that if we sample uniformly from the region below the curve of a distribution function $f(x)$, then the marginal density of $X$ is given by $f(x)$. This is the basis for the acceptance-rejection method. Informally, we have shown that all points$\{(x,y) \in \mathbb{R}^2 : 0 \leq y \leq f(x)\}$, which are bounded in by the real axis and $f(x)$, drawn uniformly, yeilds points that are distributed according to $f(x)$
 
-\section{Transformation of Variables}
+\subsection{Transformation of Variables}
 Suppose that we have a vector of random variables $X = (X_1, X_2, \ldots, X_n)$ with joint density $f_X(x)$. We wish to find the joint density of a new vector of random variables $Y = (Y_1, Y_2, \ldots, Y_n)$, where $Y = g(X)$ for some function $g$. If $g$ is a one-to-one transformation, then we can find the joint density of $Y$ using the change of variables formula. Let $h = g^{-1}$ be the inverse transformation. Then the joint density of $Y$ is given by
 \begin{equation}
     f_Y(y) = f_X(h(y)) \left| \det J_h(y) \right|,
     \quad y \in \mathbb{R}^n.
 \end{equation}
-\subsection{Task 13}
+\subsubsection{Task 13}
 We are given the transformation of $(X,Y)$ to $(V,U)$, where $X = \sqrt{V}cos(U)$ and $Y = \sqrt{V}sin(U)$, Where $ V > 0$ and $0 < U < \pi/2$. $X$ and $Y$ independent and standard normal. We wish to find the joint density of $(V,U)$. Note that the trasform implies that
 $$X^2 + Y^2 = V$$
 And since $(X,Y)$ is jointly standard normal, we have that
@@ -196,7 +200,7 @@ The determinant of the Jacobian matrix is
 \end{equation}
 Therefore, the joint density of $(V,U)$ is
 \begin{equation}
-    f_{V,U}(v,u) = f_{X,Y}(h(v,u)) \left| \det J_h(v,u) \right| =  \frac{1}{2\pi} e^{-\frac{1}{2}V} \cdot \frac{1}{2}.
+    f_{V,U}(v,u) = f_{X,Y}(h(v,u)) \left| \det J_h(v,u) \right| =  \underbrace{\frac{1}{2\pi}}_{f(u)} \underbrace{\dfrac{1}{2}e^{-\frac{1}{2}v}}_{g(v)}.
 \end{equation}
 We see that this is a product of two functions, one in $v$ and one in $u$, which means that $V$ and $U$ are independent. More specifically, we have that $V$ is exponentially distributed with rate parameter $\lambda = 1/2$, and $U$ is uniformly distributed on the interval $(0, \pi/2)$. This then means that (V,U) are points at distance $V$ from the origin, and the angle $U$ is uniformly distributed on the interval $(0, \pi/2)$. \vspace{2em}
 
@@ -205,18 +209,124 @@ Suppose we want point uniformly from the unit sphere. Then we are interested in 
     A^2 + B^2 + C^2 = \frac{X^2}{||(X,Y,Z)||^2} + \frac{Y^2}{||(X,Y,Z)||^2} + \frac{Z^2}{||(X,Y,Z)||^2} = \frac{X^2 + Y^2 + Z^2}{||(X,Y,Z)||^2} = 1.
 \end{equation}
 
-\section{Task 15}
-In the following we are interested in finding a bounding box for the region $B = \{(x_1,x_2) \in \mathbb{R}^2 : 0 \leq x_1 \leq \sqrt{g(x_1/x_2)}\}$, where $f(x)$ is a distribution function. We have a given candidate density function $g(x) = xe^{-x}$. The steps we need to follow are:
+\subsection{Ratio of Uniforms, exemplified by task 15}
+
+Let $g : \mathbb{R} \to [0, \infty) $ be a function with a finite positive integral, i.e. $\int_\mathbb{R} g(x) dx < \infty$, and let $sup_{x\in \mathbb{R}} |x|g(x) < \infty$. We then define the region $B = \{(x_1,x_2) \in \mathbb{R}^2 : 0 < x_1 < \sqrt{g(x_2/x_1)}\}$. We then have that if $(X_1,X_2)$ is uniformly distributed on $B$, then the ratio $X_2/X_1$ has density
+In the following we are interested in finding a bounding box for the region $B = \{(x_1,x_2) \in \mathbb{R}^2 : 0 < x_1 < \sqrt{g(x_2/x_1)}\}$, where $f(x)$ is a distribution function. We have a given candidate density function $g(x) = xe^{-x}$. The steps we need to follow are:
 \begin{enumerate}
     
     \item Find the supremum of $\sqrt{g(x)}$, this will give us the upper bound for $x_1$.
     \item  Define $x = x_2/x_1$, note that $x\in \mathbb{R}$, can be both negative and positive.
     \item Find the bounds for $x_2$, since $x_2 = xx_1$, it follows from the inequality in $B$, and the fact that $x$ can be both negative and positive, that $ -sup_{x\in \mathbb{R}} x \sqrt{g(x)}< x_2 < sup_{x\in \mathbb{R}} x \sqrt{g(x)}$.
 \end{enumerate}
-For the the function $g(x) = xe^{-x}$, we find the supremum of $\sqrt{g(x)}$ to be $\frac{1}{\sqrt{e}}$. For the bounds of $x_2$, we have that $x_2 = xx_1$, and since $x$ can be both negative and positive, we have that $ -sup_{x\in \mathbb{R}} x \sqrt{g(x)}< x_2 < sup_{x\in \mathbb{R}} x \sqrt{g(x)}$. We find the supremum of $x\sqrt{g(x)}$ to be $\approx 1.16$. Thus we have that the bounding box is given by
+
+This is motivated by the following. We have that both $x_1$ and $x_2$ are real numbers, as such, their fraction is also a real number. It follows directly from $B$ that $0 < x_1 < \sqrt{g(x_2/x_1)} \implies 0 < x_1 < \sqrt{g(x)}$, for any $x \in \mathbb{R}$. Now, since $x_2 = xx_1$, we can multiply the previous inequality by $x$, if $x$ is positive:
+ $$0 < x_2 < x\sqrt{g(x)}.$$
+Now note, that the bounds of $x_1$ implies that is non-negative, and thus $0 < x_2$ for this case. Now if $x$ is negative, we have that $x_2 < 0$:
+ $$x\sqrt{g(x)} < x_2 < 0.$$
+These inequalities under the conditions on $x$ implies that
+$$
+|x_2| < |x|\sqrt{g(x)} \implies -|x|\sqrt{g(x)} < x_2 < |x|\sqrt{g(x)} \implies
+ -sup_{x\in \mathbb{R}} x \sqrt{g(x)}< x_2 < sup_{x\in \mathbb{R}} x \sqrt{g(x)}.
+$$
+
+
+For the the function $g(x) = xe^{-x}$, we find the supremum of $\sqrt{g(x)}$. To do this, we take the derivative of $g(x)$ and set it equal to zero. We have that
 \begin{equation}
-    A = \{(x_1,x_2) \in \mathbb{R}^2 : 0 \leq x_1 \leq \frac{1}{\sqrt{e}}, -1.16 < x_2 < 1.16\}.
+    g'(x) = e^{-x} - xe^{-x} = e^{-x}(1-x) = 0 \implies x = 1.
 \end{equation}
-Thus we need to sample from points $U \sim Unif(0, \frac{1}{\sqrt{e}})$ and $V \sim Unif(-1.16, 1.16)$, and accept the points that fall in the region $B$. Note for this perticular function, negative values of $x_2$ will create point in the complex plane, so we can further restrict the bounding box to be $A = \{(x_1,x_2) \in \mathbb{R}^2 : 0 \leq x_1 \leq \frac{1}{\sqrt{e}}, 0 < x_2 < 1.16\}$.
+We then have that $g(1) = 1/e$, and thus we have that $\sqrt{g(1)} = 1/\sqrt{e}$. Since $g(x)$ is monotone decreasing for $x > 1$, we have that the supremum of $\sqrt{g(x)}$ is given by $sup_{x\in \mathbb{R}} \sqrt{g(x)} = 1/\sqrt{e}$. 
+
+For the bounds of $x_2$, we have that $x_2 = xx_1$, and since $x$ can be both negative and positive, we have that $ -sup_{x\in \mathbb{R}} x \sqrt{g(x)}< x_2 < sup_{x\in \mathbb{R}} x \sqrt{g(x)}$. We find the supremum of $x\sqrt{g(x)}$ to be $\approx 1.16$. Thus we have that the bounding box is given by
+\begin{equation}
+    A = \{(x_1,x_2) \in \mathbb{R}^2 : 0 < x_1 < \frac{1}{\sqrt{e}}, -1.16 < x_2 < 1.16\}.
+\end{equation}
+Thus we need to sample from points $U \sim Unif(0, \frac{1}{\sqrt{e}})$ and $V \sim Unif(-1.16, 1.16)$, and accept the points that fall in the region $B$. Note for this perticular function, negative values of $x_2$ will create point in the complex plane, so we can further restrict the bounding box to be $A = \{(x_1,x_2) \in \mathbb{R}^2 : 0 < x_1 < \frac{1}{\sqrt{e}}, 0 < x_2 < 1.16\}$.
+
+
+\begin{center}
+    
+
+\begin{tikzpicture}
+
+\begin{axis}[
+    width=12cm,
+    height=9cm,
+    axis lines=middle,
+    xlabel={$x_1$},
+    ylabel={$x_2$},
+    xmin=-0.03, xmax=0.75,
+    ymin=-1.35, ymax=1.35,
+    xlabel style={at={(axis description cs:1,0.48)}, anchor=west},
+    ylabel style={at={(axis description cs:0.08,1)}, anchor=south},
+    grid=major,
+    samples=400,
+    legend pos=north east,
+]
+
+% Region B
+% Boundary parameterization:
+% x1 = sqrt(t)*exp(-t/2)
+% x2 = t^(3/2)*exp(-t/2)
+
+\addplot[
+    domain=0.0001:25,
+    variable=\t,
+    thick,
+    draw=orange!80!black,
+    fill=orange!35,
+    fill opacity=0.65,
+]
+(
+    {sqrt(\t)*exp(-\t/2)},
+    {\t*sqrt(\t)*exp(-\t/2)}
+)
+\closedcycle;
+
+% Bounding box A
+\addplot[
+    blue,
+    dashed,
+    very thick,
+]
+coordinates {
+    (0,-1.16)
+    (0.60653,-1.16)
+    (0.60653,1.16)
+    (0,1.16)
+    (0,-1.16)
+};
+
+% Labels
+\node[orange!80!black] at (axis cs:0.23,0.65)
+    {$B$};
+
+\node[blue] at (axis cs:0.45,-0.9)
+    {$A$};
+
+\end{axis}
+
+\end{tikzpicture}
+\end{center}
+Now in practice, we can sample from the bounding box $A$ and accept the points that fall in the region $B$. We can do this by checking if the point $(x_1,x_2)$ satisfies the inequality $0 < x_1 < \sqrt{g(x_2/x_1)}$. If it does, we compute the ratio $x_2/x_1$ and accept the point as a sample from the distribution $f(x) = \dfrac{g(x)}{\int_\mathbb{R}g(y)dy}$. Note that this implies that $g(x)$ is the kernel of the desired distribution $f(x)$. Note that in this case $g(x)$ is only defined, and strictly positive, for $x > 0$, and thus the lower bound of $x_2$ can be set to zero, since we know that $x_1 > 0$ and thus $x_2/x_1 > 0 \implies x_2 > 0$. 
+
+\subsection{Normal Samples}
+Since the normal distribution is a particularly important distribution, drawing samples from it is of esteemed interest. We can use the ratio of uniforms to draw samples, according to Algorithm 3.2.1 in the notes. It follows from: \vspace{1em}
+
+Let $g(x) = e^{-x^2/2}$, then $B = \{(x_1,x_2) \in \mathbb{R}^2 : 0 < x_1 < e^{-\frac{x^2}{4x_1^2}}\}$, since $\sqrt(g(x)) = e^{-x^2/4}$. Now it can be shown that $B$ is bounded by the box $A = \{(x_1,x_2) \in \mathbb{R}^2 : 0 < x_1 < 1, -\sqrt{2/e} < x_2 < \sqrt{2/e}\}$. Therefore if we sample $x_1 \sim Unif(0,1)$ and $x_2 \sim Unif(-\sqrt{2/e}, \sqrt{2/e})$, and accept the points that fall in the region $B$. This is equivalent to
+
+$$\text{Accept if: } x_1 < e^{-\frac{x^2}{4x_1^2}} \to \text{Return:  } \dfrac{x_2}{x_1}$$
+
+Where the returned sample is distributed according to the standard normal distribution. 
+
+\subsubsection{Generalized normal samples}
+Now that we are able to sample from the normal distribution, we can
+\begin{enumerate}
+    \item Sample the standard normal distribution $Z_i \sim N(0,1)$
+    \item Make vectors of i.i.d. standard normal samples, $Z= (Z_1, Z_2, \ldots, Z_n) \sim N(0,1)$
+\end{enumerate}
+We can then use the transformation $X = \mu + A Z$ to obtain samples from the general normal distribution $X \sim N(\mu, \sigma)$, where $A$ is the cholesky decomposition of the covariance matrix $\Sigma$, such that $\Sigma = AA^T$. 
+
+
 
 \end{document}

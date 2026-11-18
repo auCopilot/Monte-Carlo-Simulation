@@ -122,8 +122,10 @@
 
 \begin{document}
 
+\section{Week}
+
 In week 1 we discussed some behind the scenes of Monte Carlo Simulation. 
-\section{Linear Congruential Generator}
+\subsection{Linear Congruential Generator}
 
 An important part of Monte Carlo Simulation is the generation of pseudo-random numbers. One of the first techniques for generating pseudo-random numbers was the Linear Congruential Generator (LCG). The LCG is defined by the recurrence relation:
 \begin{equation}
@@ -131,7 +133,7 @@ An important part of Monte Carlo Simulation is the generation of pseudo-random n
 \end{equation}
 Where specific values of $a$, $c$, and $m$ are chosen to produce a sequence of pseudo-random numbers and it is initialized with some $Z_0 \in \mathbb{N}$. The choice of these parameters is crucial for the quality of the generated numbers. If chosen poorrly, the cycle length can be very short, on the order of 1 or 2, which is not desirable. However, number theory gives results that improve this to the order of $m$. The number theory results are beyond the scope of this course.
 
-\section{Monte Carlo Integration in 1D}
+\subsection{Monte Carlo Integration in 1D}
 We can use Monte Carlo Simulation to estimate the value of an integral. Let $h(x)$ be defined on the unit interval $(0,1)$. We can estimate the integral of $h(x)$ by generation $N$ random numbers $x_1, x_2, \ldots, x_N$ uniformly distributed in $(0,1)$ and computing the average of $h(x_i)$:
 \begin{equation}
    \hat{\ell} = \int_0^1 h(x) dx \approx \frac{1}{N} \sum_{i=1}^{N} h(x_i)
@@ -145,7 +147,7 @@ Since the randoms numbers i i.i.d and uniformly distributed, we have that $f(x) 
     \dfrac{1}{N}\sum_{i=1}^{N} h(x_i) \to \int_0^1 h(x) dx \text{ for } N \to \infty.
 \end{equation}
 
-\section{Testing for Statistical Properties of Pseudo Random Numbers (PRNs)}
+\subsection{Testing for Statistical Properties of Pseudo Random Numbers (PRNs)}
 When we have indeed made a PRN Generator, we want to test it for statistical properties. We can do this by generating a large number of PRNs and then testing them for uniformity and independence. To test uniformity, we discretize the unit interval into $r$ bins, and count the number of points in each bin. We compare this to the expected number of points. Practially this is done using the $\chi^2$ distributed test statistic:
 \begin{equation}
     T_N(u_1, \ldots, u_N) = \sum_{i=1}^{r} \frac{(N_i - N/r)^2}{N/r}
@@ -154,7 +156,7 @@ Where $N_i$ is the number of points in bin $i$. If the PRNs are indeed uniformly
 
 Somewhat more involved is the test for autocorrelations by the lengths of increasing subsequences in the PRN sequence. See example 1.6 of the lecture notes.D
 
-\section{Output Analysis}
+\subsection{Output Analysis}
 
 Suppose that we are interested in estimating some quantity $\ell$ using Monte Carlo Simulation. We can do this by generating $N$ i.i.d. random variables $X_1, X_2, \ldots, X_N$ and computing the average of some function $h(X_i)$, however, we might be happy with some estimate, that with reasonable probability $1-\alpha$ is within some tolerance $\epsilon$. We can construct a approximate confidence interval
 \begin{equation}

@@ -126,23 +126,69 @@
 % Title page
 % -------------------------------------------------
 
-\begin{titlepage}
+%\begin{titlepage}
+%
+%   \maketitle
+%    \thispagestyle{empty}
+%
+%\end{titlepage}
 
-    \maketitle
-    \thispagestyle{empty}
+\section{Week}
 
-\end{titlepage}
+In this week we look at various methods for simulating a random variable. In the previous week we looked at, amoung other things, how to simulate a uniform distribution. We will extend this to more distributions in this week.
 
-\section{The Inverse Transfrom Method}
+\subsection{The Inverse Transfrom Method}
 
-We discussed the inverse transform method. This method is usefull for generating random variables from a given distribution. However, we are restricted to distributions with a known cumulative distribution function (CDF) that is invertible. The method is based on the fact that if $U$ is a uniform random variable on the interval $[0, 1]$, then $X = F^{-1}(U)$ has the distribution function $F$. Pratically then, we can simulate a random variable $X$ with distribution function $F$ by generating a uniform random variable $U$ and then computing $X = F^{-1}(U)$.
+We discussed the inverse transform method. This method is usefull for generating random variables from a given distribution. However, we are restricted to distributions with a known cumulative distribution function (CDF) that is invertible. The method is based on the fact that if $U$ is a uniform random variable on the interval $U \in [0, 1]$, then $X = F^{-1}(U)$ has the distribution function $F$. Pratically then, we can simulate a random variable $X$ with distribution function $F$ by generating a uniform random variable $U$ and then computing $X = F^{-1}(U)$.  \vspace{1em}
 
-\section{Discrete Distributions}
-Sampling from is a bit different and requires algorithms that act on the uniform random variable $U$ to generate a discrete random variable $X$. To read more about this, refer to section 2.2 in the lecture notes.
+\emph{Proof:} \vspace{0.5cm}
 
-\section{Location-Scale Families}
+Assume that $X$ is defined on an possible infinite interval $(a,b)$, and that $F$ is strictly increasing, and that the inverse $F^{-1}$ is well defined. Then define $X = F^{-1}(U)$ this implies that $P(X \leq x) = P( F^{-1}(U) \leq x)$. Since $F$ is strictly increasing we can apply it on both sides:
+$$
+P(X \leq x) = P(F(F^{-1}(U)) \leq F(x)) = P(U\leq F(x)) = F_U(F(x)),
+$$
+Now recall that the CDF of $U$ is $F_U(u) = u$, then
+
+$$P(X\leq x) = F_U(F(x)) = F(x)$$
+$\square$
+\subsection{Discrete Distributions}
+Sampling from is a bit different and requires algorithms that act on the uniform random variable $U$ to generate a discrete random variable $X$. To read more about this, refer to section 2.2 in the lecture notes. To sample discrete integers, the general idea is to sample a standard uniform and check if the drawn unforms is in intervals defined by $P(X = j) = p_j$
+
+\subsection{Location-Scale Families}
 We say that a family of distributions is a location-scale family if a random variable $X$ with distribution $f(x)$
 can be transformed into a random variable $Z = \mu + \sigma X$, such that $f_Z(z) = f(x; \mu, \sigma) := \frac{1}{\sigma} f(\frac{x - \mu}{\sigma})$ also is a well-defined distribution.
 
+\subsection{Truncated random variables}
+Sometimes we may be interested in the distribution of a random variable $\tilde X$ constrained to an interval $[a,b]$, where $X$ is a random variable on $\mathcal{A}$ such that $[a,b]\subseteq \mathcal{A}$. Then the truncated density is as follows
+
+$$
+\tilde f(z) = \dfrac{f(z)}{\int_{a}^{b}f(x)dx}\mathbb{I}(z \in [a,b])
+$$
+If we want to simulate from the truncated distribution that we use $ Z = F^{-1}(F(a) - U(F(a)-F(b)).$ If we define $W =F(a) - U(F(a)-F(b)$, then we note that it is a continous uniform on $[F(a), F(b)]$. Now
+
+$$
+P(Z \in [c,d]) = P(F^{-1}(W) \in [c,d])
+$$
+Now apply the strictly increasing transfrom $F$
+$$
+P(Z \in [c,d]) = P(W \in [F(c),F(d)]).
+$$
+Then we use that the probability of uniform(a,b) being in an subinterval [c,d] is $\dfrac{d-c}{b-a}$. Since $W \sim uniform(F(a), F(b))$ then
+$$
+P(Z \in [c,d]) = P(W \in [F(c),F(d)]) = \dfrac{F(d)-F(c)}{F(b)- F(a)}.
+$$
+Recall that $F$ is the CDF of $X$, so we get
+$$
+P(Z \in [c,d]) = \dfrac{F(d)-F(c)}{F(b)- F(a)} = \dfrac{P(X \in [c,d])}{P(X \in [a,b])}.
+$$
+Finally, recall the definition of conditional probability, then
+$$
+\dfrac{P(X \in [c,d])}{P(X \in [a,b])} = P(X \in [c,d]| X \in [a,b]).
+$$
+Now
+$$
+ P(Z \in [c,d]) = \int_{c}^{d}\dfrac{f(z)\mathbb{I}(z \in [a,b])dz}{\int_{a}^{b}f(y)dy}= \dfrac{\int_{c}^{d}f(z)\mathbb{I}(z \in [a,b])dz}{\int_{a}^{b}f(y)dy} = \int_{c}^{d}\tilde f(z)dz
+$$
+so $\tilde f$ must be the distribution of $Z$
 
 \end{document}
